@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu
+    xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:actionLayout="@layout/activity_halaman_user"
+        android:title="@string/home_menu_user"
+        android:icon="@drawable/ic_home_black_24dp"
+        android:id="@+id/menu_home_user"/>
+    <item
+        android:actionLayout="@layout/activity_halaman_user"
+        android:title="@string/ajukan_menu_user"
+        android:icon="@drawable/ic_create_black_24dp"
+        android:id="@+id/menu_ajukan_user"/>
+    <item
+        android:actionLayout="@layout/activity_halaman_user"
+        android:title="@string/notifikasi_menu_user"
+        android:icon="@drawable/ic_notifications_black_24dp"
+        android:id="@+id/menu_notifikasi_user"/>
+    <item
+        android:actionLayout="@layout/activity_halaman_user"
+        android:title="@string/account_menu_user"
+        android:icon="@drawable/ic_account_box_black_24dp"
+        android:id="@+id/menu_account_user"/>
+
+</menu>

@@ -1,3 +1,34 @@
 <resources>
     <string name="app_name">Go Akademik</string>
+    <string name="create_account">Buat Akun</string>
+    <string name="login_button">Masuk</string>
+    <string name="password_hint">sandi…</string>
+    <string name="username_hint">nama…</string>
+    <string name="logo_login_deskripsi">logo_login</string>
+    <string name="nim_nip_hint_registrasi">nim / nip</string>
+    <string name="alamat_hint_registrasi">alamat…</string>
+    <string name="alamat_email_hint_registrasi">alamat email…</string>
+    <string name="konfirmasi_sandi_hint_registrasi">konfirmasi sandi…</string>
+    <string name="logo_buat_akun">Logo Buat Akun</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="home_menu_user">Home</string>
+    <string name="ajukan_menu_user">Ajukan</string>
+    <string name="notifikasi_menu_user">Notifikasi</string>
+    <string name="account_menu_user">Account</string>
+    <string name="dashboard_menu_admin">Dashboard</string>
+    <string name="notifikasi_menu_admin">Notifikasi</string>
+    <string name="account_menu_admin">Account</string>
+    <string name="desc_logo_sambutan">Lp3i Bergengsi Pasti</string>
+    <string name="tekan_tombol_untuk_mengajukan_surat">Tekan Tombol + untuk mengajukan surat</string>
+    <string name="tidak_ada_notif_admin">Tidak ada notifikasi untuk di tampilkan</string>
+    <string name="photo_profil">Photo Profil</string>
+    <string name="nim_nip">NIM_NIP</string>
+    <string name="nama_account">Nama</string>
+    <string name="value_nama_account">Nama</string>
+    <string name="email_account">Email</string>
+    <string name="value_email_account">Email</string>
+    <string name="password_akun">Password Akun</string>
+    <string name="value_password_akun">Password Akun</string>
 </resources>
