@@ -31,4 +31,5 @@
     <string name="value_email_account">Email</string>
     <string name="password_akun">Password Akun</string>
     <string name="value_password_akun">Password Akun</string>
+    <string name="logo_account">Logo Account</string>
 </resources>

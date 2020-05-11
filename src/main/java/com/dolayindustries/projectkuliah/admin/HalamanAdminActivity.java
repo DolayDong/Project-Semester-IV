@@ -4,15 +4,21 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.viewpager.widget.ViewPager;
 
+import android.content.Context;
+import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.MenuItem;
 
+import com.dolayindustries.projectkuliah.LoginActivity;
 import com.dolayindustries.projectkuliah.R;
 import com.dolayindustries.projectkuliah.adapter.MyAdapterViewPager;
 import com.dolayindustries.projectkuliah.admin.fragment.FragmentHome;
 import com.dolayindustries.projectkuliah.admin.fragment.FragmentNotifications;
 import com.dolayindustries.projectkuliah.admin.fragment.FragmentAccount;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+
+import java.util.Objects;
 
 public class HalamanAdminActivity extends AppCompatActivity {
     private ViewPager viewPager;
@@ -70,5 +76,26 @@ public class HalamanAdminActivity extends AppCompatActivity {
         myAdapter.addFragment(new FragmentAccount());
 
         viewPagerParams.setAdapter(myAdapter);
+    }
+
+    public void logout(){
+        //menu app bar logout
+        SharedPreferences HapusStatusLogin = getApplicationContext().getSharedPreferences("DATA_LOGIN", MODE_PRIVATE);
+        SharedPreferences.Editor preferencesEditor = HapusStatusLogin.edit();
+        //jika logout diclick, maka data login dihapus
+        preferencesEditor.remove("login").apply();
+        preferencesEditor.remove("username").apply();
+        preferencesEditor.remove("role").apply();
+
+        //dan diganti status dengan tidak login
+        preferencesEditor.putString("login", "tidak");
+        preferencesEditor.apply();
+
+        //lempar ke halaman login
+        Intent logOut = new Intent(getApplicationContext(), LoginActivity.class);
+        startActivity(logOut);
+
+        //tutup activity ini
+        finish();
     }
 }

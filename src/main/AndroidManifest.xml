@@ -12,14 +12,10 @@
         <activity android:name=".user.HalamanUserActivity"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar">
 
+
         </activity>
         <activity android:name=".admin.HalamanAdminActivity"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
         </activity>
         <activity
             android:name=".RegistrasiActivity"
@@ -27,6 +23,11 @@
         <activity
             android:name=".LoginActivity"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
 
         </activity>
     </application>

@@ -2,9 +2,17 @@ package com.dolayindustries.projectkuliah.admin.fragment;
 
 import android.os.Bundle;
 
+import com.dolayindustries.projectkuliah.admin.HalamanAdminActivity;
+import com.dolayindustries.projectkuliah.user.HalamanUserActivity;
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
 
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 
@@ -49,6 +57,7 @@ public class FragmentAccount extends Fragment {
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
+        setHasOptionsMenu(true);
         super.onCreate(savedInstanceState);
         if (getArguments() != null) {
             mParam1 = getArguments().getString(ARG_PARAM1);
@@ -59,7 +68,28 @@ public class FragmentAccount extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_account_admin, container, false);
+        View view = inflater.inflate(R.layout.fragment_account_admin, container, false);
+        Toolbar toolbar = view.findViewById(R.id.toolbar);
+        ((AppCompatActivity)requireActivity()).setSupportActionBar(toolbar);
+        toolbar.setTitle(null);
+        toolbar.setBackgroundColor(getResources().getColor(R.color.colorPrimaryDark));
+        toolbar.setOverflowIcon(getResources().getDrawable(R.drawable.ic_eject_black_24dp));
+        return view;
+    }
+
+    @Override
+    public void onCreateOptionsMenu(@NonNull Menu menu, @NonNull MenuInflater inflater) {
+        inflater.inflate(R.menu.menu_action_bar_account, menu);
+        super.onCreateOptionsMenu(menu, inflater);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        if (item.getItemId() == R.id.menu_account_logout){
+            ((HalamanAdminActivity)requireActivity()).logout();
+        }
+        return super.onOptionsItemSelected(item);
     }
 }
