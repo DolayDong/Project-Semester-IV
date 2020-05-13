@@ -98,4 +98,10 @@ public class HalamanAdminActivity extends AppCompatActivity {
         //tutup activity ini
         finish();
     }
+
+    public String getDataNimDariSharedPreferences() {
+        SharedPreferences sharedPreferences = getApplicationContext().getSharedPreferences("DATA_LOGIN", MODE_PRIVATE);
+
+        return sharedPreferences.getString("username", null);
+    }
 }

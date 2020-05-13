@@ -32,4 +32,19 @@
     <string name="password_akun">Password Akun</string>
     <string name="value_password_akun">Password Akun</string>
     <string name="logo_account">Logo Account</string>
+    <string name="sandi_lama_update_data_hint">sandi lama</string>
+    <string name="sandi_baru_update_data_hint">sandi baru</string>
+
+    <!--array untuk spinner -->
+    <!--data jurusan-->
+    <string-array name="dataJurusan">
+        <item> Informatika Komputer </item>
+        <item> Administrasi Bisnis </item>
+    </string-array>
+
+    <!--data nama kampus-->
+    <string-array name="dataNamaKampus">
+        <item> Sudirman Tangerang</item>
+        <item> Lp3i Cimone </item>
+    </string-array>
 </resources>
