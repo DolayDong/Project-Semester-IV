@@ -17,6 +17,8 @@ import com.dolayindustries.projectkuliah.user.fragment.FragmentNotifications;
 import com.dolayindustries.projectkuliah.user.fragment.FragmentPengajuan;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
+import java.util.Objects;
+
 public class HalamanUserActivity extends AppCompatActivity {
     private ViewPager viewPager;
 
@@ -96,5 +98,11 @@ public class HalamanUserActivity extends AppCompatActivity {
 
         //tutup activity ini
         finish();
+    }
+
+    public String getDataNimDariSharedPreferences() {
+        SharedPreferences sharedPreferences = getApplicationContext().getSharedPreferences("DATA_LOGIN", MODE_PRIVATE);
+
+        return sharedPreferences.getString("username", null);
     }
 }
