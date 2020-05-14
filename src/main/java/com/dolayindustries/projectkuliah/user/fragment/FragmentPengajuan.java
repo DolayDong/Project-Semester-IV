@@ -14,7 +14,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
-import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TextView;
@@ -110,18 +109,15 @@ public class FragmentPengajuan extends Fragment {
                 int bulan = calendar.get(Calendar.MONTH);
                 int tahun = calendar.get(Calendar.YEAR);
 
-                datePickerDialog = new DatePickerDialog(requireContext(), new DatePickerDialog.OnDateSetListener() {
-                    @Override
-                    public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
-                        calendar.set(Calendar.DAY_OF_MONTH, dayOfMonth);
-                        calendar.set(Calendar.MONTH, month);
-                        calendar.set(Calendar.YEAR, year);
+                datePickerDialog = new DatePickerDialog(requireContext(), (view1, year, month, dayOfMonth) -> {
+                    calendar.set(Calendar.DAY_OF_MONTH, dayOfMonth);
+                    calendar.set(Calendar.MONTH, month);
+                    calendar.set(Calendar.YEAR, year);
 
-                        String formatTanggal = "dd MMM yyyy";
-                        @SuppressLint("SimpleDateFormat")
-                        SimpleDateFormat simpleDateFormat = new SimpleDateFormat(formatTanggal);
-                        editTextTanggalLahirPengaju.setText(simpleDateFormat.format(calendar.getTime()));
-                    }
+                    String formatTanggal = "dd MMM yyyy";
+                    @SuppressLint("SimpleDateFormat")
+                    SimpleDateFormat simpleDateFormat = new SimpleDateFormat(formatTanggal);
+                    editTextTanggalLahirPengaju.setText(simpleDateFormat.format(calendar.getTime()));
                 }, hari, bulan, tahun);
 
                 datePickerDialog.getDatePicker().setMinDate(calendar.getTimeInMillis() - 946708560000L);

@@ -1,14 +1,15 @@
 package com.dolayindustries.projectkuliah.admin;
 
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.viewpager.widget.ViewPager;
 
-import android.content.Context;
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.database.Cursor;
+import android.database.SQLException;
+import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
-import android.view.MenuItem;
 
 import com.dolayindustries.projectkuliah.LoginActivity;
 import com.dolayindustries.projectkuliah.R;
@@ -16,9 +17,9 @@ import com.dolayindustries.projectkuliah.adapter.MyAdapterViewPager;
 import com.dolayindustries.projectkuliah.admin.fragment.FragmentHome;
 import com.dolayindustries.projectkuliah.admin.fragment.FragmentNotifications;
 import com.dolayindustries.projectkuliah.admin.fragment.FragmentAccount;
+import com.dolayindustries.projectkuliah.database.DataHelper;
+import com.google.android.material.badge.BadgeDrawable;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
-
-import java.util.Objects;
 
 public class HalamanAdminActivity extends AppCompatActivity {
     private ViewPager viewPager;
@@ -32,22 +33,20 @@ public class HalamanAdminActivity extends AppCompatActivity {
         setupViewPager(viewPager);
 
         BottomNavigationView bottomNavigationView = findViewById(R.id.bottom_navigation_menu_admin);
-        bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
-            @Override
-            public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
-                switch (menuItem.getItemId()){
-                    case R.id.menu_dashboard:
-                        viewPager.setCurrentItem(0, true);
-                        break;
-                    case R.id.menu_notifikasi_admin:
-                        viewPager.setCurrentItem(1, true);
-                        break;
-                    case R.id.menu_account_admin:
-                        viewPager.setCurrentItem(2, true);
-                        break;
-                }
-                return true;
+        bottomNavigationView.getOrCreateBadge(R.id.menu_notifikasi_admin);
+        bottomNavigationView.setOnNavigationItemSelectedListener(menuItem -> {
+            switch (menuItem.getItemId()) {
+                case R.id.menu_dashboard:
+                    viewPager.setCurrentItem(0, true);
+                    break;
+                case R.id.menu_notifikasi_admin:
+                    viewPager.setCurrentItem(1, true);
+                    break;
+                case R.id.menu_account_admin:
+                    viewPager.setCurrentItem(2, true);
+                    break;
             }
+            return true;
         });
 
         viewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
@@ -67,6 +66,8 @@ public class HalamanAdminActivity extends AppCompatActivity {
 
             }
         });
+
+        dataPengajuanDariDatabase(bottomNavigationView);
     }
 
     private void setupViewPager(ViewPager viewPagerParams){
@@ -104,4 +105,18 @@ public class HalamanAdminActivity extends AppCompatActivity {
 
         return sharedPreferences.getString("username", null);
     }
+
+    private void dataPengajuanDariDatabase(BottomNavigationView bottomNavigationView) throws SQLException {
+        DataHelper dataHelper = new DataHelper(getApplicationContext());
+        SQLiteDatabase database = dataHelper.getReadableDatabase();
+
+        @SuppressLint("Recycle")
+        Cursor cursor = database.rawQuery("SELECT * FROM tabelpengajuan WHERE dibaca = 'terkirim';", null);
+        bottomNavigationView.getOrCreateBadge(R.id.menu_notifikasi_admin);
+        BadgeDrawable badgeDrawableNotifikasi = bottomNavigationView.getBadge(R.id.menu_notifikasi_admin);
+
+        assert badgeDrawableNotifikasi != null;
+        badgeDrawableNotifikasi.setNumber(cursor.getCount());
+    }
+
 }
