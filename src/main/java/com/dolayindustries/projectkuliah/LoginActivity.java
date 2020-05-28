@@ -23,6 +23,15 @@ import com.dolayindustries.projectkuliah.database.DataHelper;
 import com.dolayindustries.projectkuliah.user.HalamanUserActivity;
 
 public class LoginActivity extends AppCompatActivity {
+    public String getDataLogin() {
+        return dataLogin;
+    }
+
+    public String getDataRole() {
+        return dataRole;
+    }
+
+    private String dataLogin, dataRole, dataUsrname;
     private Cursor cursor;
     private Button buttonLogin;
     private ProgressBar loadingLogin;
@@ -33,6 +42,7 @@ public class LoginActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
+        Toast.makeText(this, "onCreate()", Toast.LENGTH_SHORT).show();
         
         inisialisasiElement();
         
@@ -40,8 +50,60 @@ public class LoginActivity extends AppCompatActivity {
 
         textViewBuatAkun.setPaintFlags(Paint.UNDERLINE_TEXT_FLAG);
         textViewBuatAkun.setOnClickListener(v -> pindahHalamanRegistrasi());
+
+        /*cek login */
+        SharedPreferences sharedPreferences = getApplicationContext().getSharedPreferences("DATA_LOGIN", Context.MODE_PRIVATE);
+        dataLogin = sharedPreferences.getString("login", null);
+        dataRole = sharedPreferences.getString("role", null);
+        dataUsrname = sharedPreferences.getString("username", null);
+
+        if (dataLogin != null && dataLogin.equalsIgnoreCase("pindah")) {
+            SharedPreferences.Editor preferencesEditor = sharedPreferences.edit();
+            //jika logout diclick, maka data login dihapus
+            preferencesEditor.remove("username").apply();
+            preferencesEditor.remove("role").apply();
+
+            Toast.makeText(this, String.valueOf(dataLogin), Toast.LENGTH_SHORT).show();
+        }
+
+
+        //cek apakah sebelumnya user sudah login. jika ya
+        if (dataLogin != null && dataLogin.equalsIgnoreCase("ya")) {
+            assert dataRole != null;
+            if (dataRole.equalsIgnoreCase("user")) {
+                //langsung lempar ke activity menu user
+                Intent intentActivityMenuUser = new Intent(getApplicationContext(), HalamanUserActivity.class);
+                startActivity(intentActivityMenuUser);
+                this.finish();
+            } else {
+                //activity menu admin
+                Intent intentActivityMenuAdmin = new Intent(getApplicationContext(), HalamanAdminActivity.class);
+                startActivity(intentActivityMenuAdmin);
+                this.finish();
+            }
+
+        }
+        /*akhir cek login*/
     }
-    
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        Toast.makeText(this, "onPause()", Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        Toast.makeText(this, "onResume()", Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        Toast.makeText(this, "onDestroy()", Toast.LENGTH_SHORT).show();
+    }
+
     private void inisialisasiElement(){
         editTextNamaPengguna = findViewById(R.id.e_text_username_login);
         editTextPasswordPengguna = findViewById(R.id.e_text_password_login);
@@ -134,30 +196,5 @@ public class LoginActivity extends AppCompatActivity {
         Intent intent = new Intent(getApplicationContext(), HalamanAdminActivity.class);
         startActivity(intent);
         finish();
-    }
-
-    @Override
-    protected void onStart() {
-        super.onStart();
-        // ambil data login dari sharedpreferences
-        SharedPreferences sharedPreferences = getApplicationContext().getSharedPreferences("DATA_LOGIN", Context.MODE_PRIVATE);
-        String dataLogin = sharedPreferences.getString("login", null);
-        String dataRole = sharedPreferences.getString("role", null);
-
-        //cek apakah sebelumnya user sudah login. jika ya
-        if (dataLogin != null && dataLogin.equalsIgnoreCase("ya")) {
-            if (dataRole != null && dataRole.equalsIgnoreCase("user")) {
-                //langsung lempar ke activity menu user
-                Intent intentActivityMenuUser = new Intent(getApplicationContext(), HalamanUserActivity.class);
-                startActivity(intentActivityMenuUser);
-                this.finish();
-            } else {
-                //activity menu admin
-                Intent intentActivityMenuAdmin = new Intent(getApplicationContext(), HalamanAdminActivity.class);
-                startActivity(intentActivityMenuAdmin);
-                this.finish();
-            }
-
-        }
     }
 }

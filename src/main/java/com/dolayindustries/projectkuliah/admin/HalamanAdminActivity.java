@@ -1,15 +1,22 @@
 package com.dolayindustries.projectkuliah.admin;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.NotificationCompat;
+import androidx.core.app.NotificationManagerCompat;
 import androidx.viewpager.widget.ViewPager;
 
 import android.annotation.SuppressLint;
+import android.app.NotificationChannel;
+import android.app.NotificationManager;
+import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
+import android.os.Build;
 import android.os.Bundle;
+import android.widget.Toast;
 
 import com.dolayindustries.projectkuliah.LoginActivity;
 import com.dolayindustries.projectkuliah.R;
@@ -22,12 +29,22 @@ import com.google.android.material.badge.BadgeDrawable;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 public class HalamanAdminActivity extends AppCompatActivity {
+
     private ViewPager viewPager;
+
+    public int getJumlahNotifikasi() {
+        return jumlahNotifikasi;
+    }
+
+    private static int jumlahNotifikasi;
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_halaman_admin);
+
 
         viewPager = findViewById(R.id.view_pager_admin);
         setupViewPager(viewPager);
@@ -68,6 +85,20 @@ public class HalamanAdminActivity extends AppCompatActivity {
         });
 
         dataPengajuanDariDatabase(bottomNavigationView);
+
+        SharedPreferences sharedPreferences = getApplicationContext().getSharedPreferences("DATA_LOGIN", Context.MODE_PRIVATE);
+        String dataLogin = sharedPreferences.getString("login", null);
+        String dataRole = sharedPreferences.getString("role", null);
+
+        assert dataRole != null;
+        if (dataLogin != null && !dataRole.equalsIgnoreCase("admin")) {
+
+            Intent intentLogin = new Intent(this, LoginActivity.class);
+            startActivity(intentLogin);
+        }
+
+
+
     }
 
     private void setupViewPager(ViewPager viewPagerParams){
@@ -115,8 +146,10 @@ public class HalamanAdminActivity extends AppCompatActivity {
         bottomNavigationView.getOrCreateBadge(R.id.menu_notifikasi_admin);
         BadgeDrawable badgeDrawableNotifikasi = bottomNavigationView.getBadge(R.id.menu_notifikasi_admin);
 
+        jumlahNotifikasi = cursor.getCount();
         assert badgeDrawableNotifikasi != null;
         badgeDrawableNotifikasi.setNumber(cursor.getCount());
     }
+
 
 }

@@ -1,25 +1,30 @@
 package com.dolayindustries.projectkuliah.user;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.NotificationCompat;
+import androidx.core.app.NotificationManagerCompat;
 import androidx.viewpager.widget.ViewPager;
 
+import android.app.NotificationChannel;
+import android.app.NotificationManager;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.os.Build;
 import android.os.Bundle;
 
 import com.dolayindustries.projectkuliah.LoginActivity;
 import com.dolayindustries.projectkuliah.R;
 import com.dolayindustries.projectkuliah.adapter.MyAdapterViewPager;
+import com.dolayindustries.projectkuliah.admin.HalamanAdminActivity;
 import com.dolayindustries.projectkuliah.user.fragment.FragmentAccount;
 import com.dolayindustries.projectkuliah.user.fragment.FragmentHome;
 import com.dolayindustries.projectkuliah.user.fragment.FragmentNotifications;
 import com.dolayindustries.projectkuliah.user.fragment.FragmentPengajuan;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
-import java.util.Objects;
-
 public class HalamanUserActivity extends AppCompatActivity {
+
     private ViewPager viewPager;
 
     @Override
@@ -67,6 +72,11 @@ public class HalamanUserActivity extends AppCompatActivity {
 
             }
         });
+        HalamanAdminActivity halamanAdminActivity = new HalamanAdminActivity();
+        int jumlah = halamanAdminActivity.getJumlahNotifikasi();
+        if (jumlah > 0) {
+//            tampilNotifikasi();
+        }
     }
 
     private void setViewPage(ViewPager viewPageParam){
@@ -105,4 +115,5 @@ public class HalamanUserActivity extends AppCompatActivity {
 
         return sharedPreferences.getString("username", null);
     }
+
 }

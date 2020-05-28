@@ -3,6 +3,8 @@ package com.dolayindustries.projectkuliah.user.fragment;
 import android.annotation.SuppressLint;
 import android.app.AlertDialog;
 import android.app.DatePickerDialog;
+import android.content.Intent;
+import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
@@ -19,18 +21,24 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.dolayindustries.projectkuliah.LoginActivity;
 import com.dolayindustries.projectkuliah.R;
 import com.dolayindustries.projectkuliah.database.DataHelper;
+import com.dolayindustries.projectkuliah.service.AppService;
 import com.dolayindustries.projectkuliah.user.HalamanUserActivity;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.Objects;
+
+import static android.content.Context.MODE_PRIVATE;
 
 /**
  * A simple {@link Fragment} subclass.
  */
 public class FragmentPengajuan extends Fragment {
+    private String dataJurusan, dataNamaKampus, dataNimPengaju, dataNamaPengaju, dataTanggalLahirPengaju, dataAlamatRumahPengaju;
     private TextView textViewAjukanSurat, textViewBatalAjukanSurat;
     private DatePickerDialog datePickerDialog;
     private Calendar calendar;
@@ -75,7 +83,7 @@ public class FragmentPengajuan extends Fragment {
             spinnerDataJurusan.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
                 @Override
                 public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                    String dataJurusan = spinnerDataJurusan.getSelectedItem().toString();
+                    dataJurusan = spinnerDataJurusan.getSelectedItem().toString();
                     Toast.makeText(getContext(), dataJurusan, Toast.LENGTH_SHORT).show();
                 }
 
@@ -93,7 +101,7 @@ public class FragmentPengajuan extends Fragment {
             spinnerDataNamaKampus.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
                 @Override
                 public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                    String dataNamaKampus = spinnerDataNamaKampus.getSelectedItem().toString();
+                    dataNamaKampus = spinnerDataNamaKampus.getSelectedItem().toString();
                     Toast.makeText(getContext(), dataNamaKampus, Toast.LENGTH_SHORT).show();
                 }
 
@@ -129,16 +137,13 @@ public class FragmentPengajuan extends Fragment {
 
             textViewAjukanSurat.setOnClickListener(v1 -> {
                 alertDialogPengajuanSurat.dismiss();
-                Toast.makeText(getContext(), "Lanjut ke pengisian database", Toast.LENGTH_SHORT).show();
+                inputDatabase();
+                
             });
 
-            textViewBatalAjukanSurat.setOnClickListener(v1 -> {
-                alertDialogPengajuanSurat.cancel();
-                Toast.makeText(getContext(), "Batal Isi data ke database", Toast.LENGTH_SHORT).show();
-            });
+            textViewBatalAjukanSurat.setOnClickListener(v1 -> alertDialogPengajuanSurat.cancel());
             alertDialogPengajuanSurat.show();
         });
-    
     
         return view;
     }
@@ -152,5 +157,34 @@ public class FragmentPengajuan extends Fragment {
         editTextTanggalLahirPengaju = view.findViewById(R.id.data_tanggal_lahir_pengajuan);
         spinnerDataNamaKampus = view.findViewById(R.id.spinner_nama_kampus);
         spinnerDataJurusan = view.findViewById(R.id.spinner_data_jurusan_pengajuan);
+    }
+
+    private void inputDatabase() {
+        dataNimPengaju = editTextNimPengaju.getText().toString();
+        dataNamaPengaju = editTextNamaPengaju.getText().toString();
+        dataTanggalLahirPengaju = editTextTanggalLahirPengaju.getText().toString();
+        dataAlamatRumahPengaju = editTextAlamatPengaju.getText().toString();
+
+        DataHelper dataHelper = new DataHelper(getContext());
+        SQLiteDatabase database = dataHelper.getWritableDatabase();
+        database.execSQL("INSERT INTO tabelpengajuan(username, jurusan, statusapprove, dibaca, namakampus, jenispengajuan, tanggalpengajuan, alamatpengaju, tanggallahir, waktupengajuan) VALUES('" + dataNimPengaju + "', '" + dataJurusan + "', 'tidak', 'terkirim', '" + dataNamaKampus + "', 'Surat Pernyataan', date('now'), '" + dataAlamatRumahPengaju + "', '" + dataTanggalLahirPengaju + "', time('now','localtime'));");
+
+        if (database.isDatabaseIntegrityOk()) {
+            SharedPreferences HapusStatusLogin = requireContext().getSharedPreferences("DATA_LOGIN", MODE_PRIVATE);
+            SharedPreferences.Editor preferencesEditor = HapusStatusLogin.edit();
+            //jika logout diclick, maka data login dihapus
+            preferencesEditor.remove("login").apply();
+
+            //dan diganti status dengan tidak login
+            preferencesEditor.putString("login", "pindah");
+            preferencesEditor.apply();
+
+            Intent intentNotif = new Intent(getContext(), AppService.class);
+            requireActivity().startService(intentNotif);
+            Toast.makeText(getContext(), "Pengajuan sudah dikirim, harap menunggu untuk disetujui", Toast.LENGTH_SHORT).show();
+        } else {
+            Toast.makeText(getContext(), "Data Tidak Terkirim", Toast.LENGTH_SHORT).show();
+        }
+
     }
 }
