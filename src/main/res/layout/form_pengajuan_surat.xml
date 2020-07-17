@@ -62,14 +62,32 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Nama Kampus"
-            android:layout_marginVertical="3dp"/>
+            android:layout_marginVertical="3dp" />
+
         <Spinner
             android:backgroundTintMode="src_in"
             android:backgroundTint="@color/colorPrimaryDark"
             android:id="@+id/spinner_nama_kampus"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginVertical="3dp"/>
+            android:layout_marginVertical="3dp" />
+
+        <TextView
+            android:textColor="@color/colorAccent"
+            android:textColorHint="@color/colorAccent"
+            android:id="@+id/textViewTempatLahir"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Tempat Lahir"
+            android:layout_marginVertical="3dp" />
+
+        <Spinner
+            android:backgroundTintMode="src_in"
+            android:backgroundTint="@color/colorPrimaryDark"
+            android:id="@+id/spinner_tempat_lahir"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginVertical="3dp" />
 
         <EditText
             android:textColorHint="@color/colorAccent"

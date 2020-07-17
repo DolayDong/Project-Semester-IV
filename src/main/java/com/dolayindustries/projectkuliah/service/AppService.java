@@ -36,7 +36,6 @@ public class AppService extends Service {
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
         tampilNotifikasi();
-        Toast.makeText(this, "onStartComand()", Toast.LENGTH_SHORT).show();
         return START_NOT_STICKY;
     }
 

@@ -16,7 +16,7 @@ public class DataHelper extends SQLiteOpenHelper {
     @Override
     public void onCreate(SQLiteDatabase db) {
         String tableakun = "CREATE TABLE tabelakun(username INTEGER PRIMARY KEY, nama TEXT, email TEXT, role INTEGER, password TEXT);";
-        String tablepengajuan = "CREATE TABLE tabelpengajuan(id_pengajuan INTEGER PRIMARY KEY AUTOINCREMENT, username INTEGER, jurusan TEXT, tanggallahir TEXT, statusapprove TEXT, dibaca TEXT, namakampus TEXT, jenispengajuan TEXT, tanggalpengajuan DATETIME, alamatpengaju TEXT, waktupengajuan TIME);";
+        String tablepengajuan = "CREATE TABLE tabelpengajuan(id_pengajuan INTEGER PRIMARY KEY AUTOINCREMENT, username INTEGER, jurusan TEXT, tanggallahir TEXT, statusapprove TEXT, dibaca TEXT, namakampus TEXT, jenispengajuan TEXT, tanggalpengajuan DATETIME, alamatpengaju TEXT, waktupengajuan TIME, tempatlahir TEXT);";
         db.execSQL(tableakun);
         db.execSQL(tablepengajuan);
 

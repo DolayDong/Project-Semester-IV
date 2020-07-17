@@ -47,4 +47,566 @@
         <item> Sudirman Tangerang</item>
         <item> Lp3i Cimone </item>
     </string-array>
+
+    <!--    data nama kabupaten -->
+    <string-array name="kabupaten">
+        <!--  Provinsi Aceh -->
+        <item> Aceh Barat </item>
+        <item> Aceh Barat Daya </item>
+        <item> Aceh Besar </item>
+        <item> Aceh Jaya </item>
+        <item> Aceh Selatan </item>
+        <item> Aceh Singkil </item>
+        <item> Aceh Tamiang </item>
+        <item> Aceh Tengah </item>
+        <item> Aceh Tenggara </item>
+        <item> Aceh Timur </item>
+        <item> Aceh Utara </item>
+        <item> Bener Meriah </item>
+        <item> Biereuen </item>
+        <item> Gayo Lues </item>
+        <item> Nagan Raya </item>
+        <item> Pidie </item>
+        <item> Pidie Jaya </item>
+        <item> Simeulue </item>
+        <item> Kota Banda Aceh </item>
+        <item> Kota Langsa </item>
+        <item> Kota Lhoksumawe </item>
+        <item> Kota Sabang </item>
+        <item> Kota Subulussalam </item>
+        <!--        Sumatra Utara -->
+        <item> Asahan </item>
+        <item> Batu Bara </item>
+        <item> Dairi </item>
+        <item> Deli Serdang </item>
+        <item> Humbang Hasundutan </item>
+        <item> Karo </item>
+        <item> Labuhanbatu </item>
+        <item> Labuhanbatu Selatan </item>
+        <item> Labuhanbatu Utara </item>
+        <item> Langkat </item>
+        <item> Mandailing Natal </item>
+        <item> Nias </item>
+        <item> Nias Barat </item>
+        <item> Nias Selatan </item>
+        <item> Nias Utara </item>
+        <item> Padang Lawas </item>
+        <item> Padang Lawas Utara </item>
+        <item> Pakpak Barat </item>
+        <item> Samosir </item>
+        <item> Serdang Bedagai </item>
+        <item> Simalungun </item>
+        <item> Tapanuli Selatan </item>
+        <item> Tapanuli Tengah </item>
+        <item> Tapanuli Utara </item>
+        <item> Toba Samosir </item>
+        <item> Kota Binjai </item>
+        <item> Kota Gunungsitoli </item>>
+        <item> Kota Medan </item>
+        <item> Kota Padangsidempuan </item>
+        <item> Kota Pematangsiantar </item>
+        <item> Kota Sibolga </item>
+        <item> Kota Tanjungbalai </item>
+        <item> Kota Tebing Tinggi </item>
+
+        <!--        Sumatra Barat -->
+        <item> Agam </item>
+        <item> Dharmasraya </item>
+        <item> Kepulauan Mentawai </item>
+        <item> Lima Puluh Kota </item>
+        <item> Padang Pariaman </item>
+        <item> Pasaman </item>
+        <item> Pasaman Barat </item>
+        <item> Pesisir Selatan </item>
+        <item> Sijunjung </item>
+        <item> Solok </item>
+        <item> Solok Selatan </item>
+        <item> Tanah Datar </item>
+        <item> Kota Bukittinggi </item>
+        <item> Kota Padang </item>
+        <item> Kota Padangpanjang </item>
+        <item> Kota Pariaman </item>
+        <item> Kota Payahkumbuh </item>
+        <item> Kota Sawahlunto </item>
+        <item> Solok </item>
+
+        <!--        Riau -->
+        <item> Bengkalis </item>
+        <item> Indragiri Hilir </item>
+        <item> Indragiri Hulu </item>
+        <item> Kampar </item>
+        <item> Kepulauan Meranti </item>
+        <item> Kuantan Singingi </item>
+        <item> Pelalawan </item>
+        <item> Rokan Hilir </item>
+        <item> Rokan Hulu </item>
+        <item> Siak </item>
+        <item> Kota Dumai </item>
+        <item> Kota Pekanbaru </item>
+
+        <!--        Kepulauan Riau -->
+        <item> Bintan </item>
+        <item> Karimun </item>
+        <item> Kepulauan Anambas </item>
+        <item> Lingga </item>
+        <item> Natuna </item>
+        <item> Kota Batam </item>
+        <item> Kota Tanjungpinang </item>
+
+        <!--        Jambi -->
+        <item> Batanghari </item>
+        <item> Bungo </item>
+        <item> Kerinci </item>
+        <item> Merangin </item>
+        <item> Muarojambi </item>
+        <item> Sarolangun </item>
+        <item> Tanjung Jabang Barat </item>
+        <item> Tanjung Jabang Timur </item>
+        <item> Tebo </item>
+        <item> Kota Jambi </item>
+        <item> Kota Sungaipenuh </item>
+
+        <!--        Bengkulu -->
+        <item> Bengkulu Selatan </item>
+        <item> Bengkulu Tengah </item>
+        <item> Bengkulu Utara </item>
+        <item> Kaur </item>
+        <item> Kepahiang </item>
+        <item> Lebong </item>
+        <item> Mukomuko </item>
+        <item> Rejang Lebong </item>
+        <item> Seluma </item>
+        <item> Kota Bengkulu </item>
+
+        <!--        Sumatra Selatan -->
+        <item> Banyuasin </item>
+        <item> Empat Lawang </item>
+        <item> Lahat </item>
+        <item> Muara Enim </item>
+        <item> Musi Banyuasin </item>
+        <item> Musi Rawas </item>
+        <item> Musi Rawas Utara </item>
+        <item> Ogan Ilir </item>
+        <item> Ogan Komering Ilir </item>
+        <item> Ogan Komering Ulu </item>
+        <item> Ogan Komering Ulu Selatan </item>
+        <item> Ogan Komering Ulu Timur </item>
+        <item> Penukal Abab Lematang Ilir </item>
+        <item> Kota Lubuklinggau </item>
+        <item> Kota Pagaralam </item>
+        <item> Kota Palembang </item>
+        <item> Kota Prabumulih </item>
+
+        <!--        Bangka Belitung-->
+        <item> Bangka </item>
+        <item> Bangka Barat </item>
+        <item> Bangka Tengah </item>
+        <item> Bangka Selatan </item>
+        <item> Belitung </item>
+        <item> Belitung Timur </item>
+        <item> Kota Pangkalpinang </item>
+
+        <!--        Bandar Lampung -->
+        <item> Lampung Barat </item>
+        <item> Lampung Selatan </item>
+        <item> Lampung Tengah </item>
+        <item> Lampung Timur </item>
+        <item> Lampung Utara </item>
+        <item> Mesiju </item>
+        <item> Pesawaran </item>
+        <item> Pesisir Barat </item>
+        <item> Pringsewu </item>
+        <item> Tanggamus </item>
+        <item> Tulang Bawang </item>
+        <item> Tulang Bawang Barat </item>
+        <item> Way Kanan </item>
+        <item> Kota Bandar Lampung </item>
+        <item> Kota Metro </item>
+
+        <!--        Banten -->
+        <item> Lebak </item>
+        <item> Pandeglang </item>
+        <item> Serang </item>
+        <item> Tangerang </item>
+        <item> Kota Cilegon </item>
+        <item> Kota Serang </item>
+        <item> Kota Tangerang </item>
+        <item> Kota Tangerang Selatan </item>
+
+        <!--        DKI Jakarta -->
+        <item> Jakarta </item>
+        <!--        Jawa Barat -->
+        <item> Bandung </item>
+        <item> Bandung Barat </item>
+        <item> Bekasi </item>
+        <item> Bogor </item>
+        <item> Ciamis </item>
+        <item> Cianjur </item>
+        <item> Cirebon </item>
+        <item> Garut </item>
+        <item> Indramayu </item>
+        <item> Karawang </item>
+        <item> Kuningan </item>
+        <item> Majalengka </item>
+        <item> Pangandaran </item>
+        <item> Purwakerta </item>
+        <item> Subang </item>
+        <item> Sukabumi </item>
+        <item> Tasikmalaya </item>
+        <item> Sumedang </item>
+        <item> Kota Bandung </item>
+        <item> Kota Banjar </item>
+        <item> Kota Bekasi </item>
+        <item> Kota Bogor </item>
+        <item> Kota Cimahi </item>
+        <item> Kota Cirebon </item>
+        <item> Kota Depok </item>
+        <item> Kota Tasikmalaya </item>
+        <item> Kota Sukabumi </item>
+
+        <!--        Jawa Tengah -->
+        <item> Banjarnegara </item>
+        <item> Banyumas </item>
+        <item> Batang </item>
+        <item> Blora </item>
+        <item> Boyolali </item>
+        <item> Brebes </item>
+        <item> Cilacap </item>
+        <item> Demak </item>
+        <item> Grobogan </item>
+        <item> Jepara </item>
+        <item> Karanganyar </item>
+        <item> Kebumen </item>
+        <item> Kendal </item>
+        <item> Klaten </item>
+        <item> Kudus </item>
+        <item> Magelang </item>
+        <item> Pati </item>
+        <item> Pekalongan </item>
+        <item> Pemalang </item>
+        <item> Purbalingga </item>
+        <item> Purworejo </item>
+        <item> Rembang </item>
+        <item> Semarang </item>
+        <item> Sragen </item>
+        <item> Sukoharjo </item>
+        <item> Tegal </item>
+        <item> Temanggung </item>
+        <item> Wonogiri </item>
+        <item> Wonosobo </item>
+        <item> Kota Magelang </item>
+        <item> Kota Pekalongan </item>
+        <item> Kota Salatiga </item>
+        <item> Kota Semarang </item>
+        <item> Kota Surakarta </item>
+        <item> Kota Tegal </item>
+        <!--            Jawa timur -->
+        <item> Bangkalan </item>
+        <item> Banyuwangi </item>
+        <item> Blitar </item>
+        <item> Bojonegoro </item>
+        <item> Bondowoso </item>
+        <item> Gresik </item>
+        <item> Jember </item>
+        <item> Jombang </item>
+        <item> Kediri </item>
+        <item> Lamongan </item>
+        <item> Lumajang </item>
+        <item> Madiun </item>
+        <item> Magetan </item>
+        <item> Malang </item>
+        <item> Mojokerto </item>
+        <item> Nganjuk </item>
+        <item> Ngawi </item>
+        <item> Pacitan </item>
+        <item> Pamekasan </item>
+        <item> Pasuruan </item>
+        <item> Ponorogo </item>
+        <item> Probolinggo </item>
+        <item> Sampang </item>
+        <item> Sidoarjo </item>
+        <item> Situbondo </item>
+        <item> Sumenep </item>
+        <item> Trenggalek </item>
+        <item> Tuban </item>
+        <item> Tulungagung </item>
+        <item> Kota Batu </item>
+        <item> Kota Blitar </item>
+        <item> Kota Kediri </item>
+        <item> Kota Madiun </item>
+        <item> Kota Malang </item>
+        <item> Kota Mojokerto </item>
+        <item> Kota Pasururan </item>
+        <item> Kota Probolinggo </item>
+        <item> Kota Surabaya </item>
+
+        <!--            DIY-->
+        <item> Bantul </item>
+        <item> Gunungkidul </item>
+        <item> Kulon Progo </item>
+        <item> Sleman </item>
+        <item> Kota Yogyakarta </item>
+
+        <!--            Bali -->
+        <item> Badung </item>
+        <item> Bangli </item>
+        <item> Buleleng </item>
+        <item> Gianyar </item>
+        <item> Jembrana </item>
+        <item> Karangasem </item>
+        <item> Klungkung </item>
+        <item> Tabanan </item>
+        <item> Kota Denpasar </item>
+        <!--            NTB -->
+        <item> Bima </item>
+        <item> Dompu </item>
+        <item> Lombok Barat </item>
+        <item> Lombok Tengah </item>
+        <item> Lombok Timur </item>
+        <item> Lombok Utara </item>
+        <item> Sumbawa </item>
+        <item> Sumbawa Barat </item>
+        <item> Kota Bima </item>
+        <item> Kota Mataram </item>
+        <!--            NTT -->
+        <item> Alor </item>
+        <item> Belu </item>
+        <item> Ende </item>
+        <item> Flores Timur </item>
+        <item> Kupang </item>
+        <item> Lembata </item>
+        <item> Malaka </item>
+        <item> Manggarai </item>
+        <item> Manggarai Barat </item>
+        <item> Manggarai Timur </item>
+        <item> Nagekeo </item>
+        <item> Ngada </item>
+        <item> Rote Ndao </item>
+        <item> Sabu Raijua </item>
+        <item> Sikka </item>
+        <item> Sumba Barat </item>
+        <item> Sumba Barat Daya </item>
+        <item> Sumba Timur </item>
+        <item> Sumba Tengah </item>
+        <item> Sumba Tengah Selatan </item>
+        <item> Sumba Tengah Utara </item>
+        <item> Kota Kupang </item>
+        <!--            Kalimantan Barat-->
+        <item> Bengkayang </item>
+        <item> Kapuas Hulu </item>
+        <item> Kayong Utara </item>
+        <item> Ketapang </item>
+        <item> Kubu Raya </item>
+        <item> Landak </item>
+        <item> Melawi </item>
+        <item> Mempawah </item>
+        <item> Sambas </item>
+        <item> Sanggau </item>
+        <item> Sekadau </item>
+        <item> Sintang </item>
+        <item> Kota Pontianak </item>
+        <item> Kota Singkawang </item>
+        <!--            Kalimantan Selatan-->
+        <item> Balangan </item>
+        <item> Banjar </item>
+        <item> Barito Kuala </item>
+        <item> Hulu Sungai Selatan </item>
+        <item> Hulu Sungai Tengah </item>
+        <item> Hulu Sungai Utara </item>
+        <item> Kotabaru </item>
+        <item> Tabalong </item>
+        <item> Tanah Bumbu </item>
+        <item> Tanah Laut </item>
+        <item> Tapin </item>
+        <item> Kota Banjarbaru </item>
+        <item> Kota Banjarmasin </item>
+
+        <!--            Kalimantan Tengah -->
+        <item> Barito Selatan </item>
+        <item> Barito Timur </item>
+        <item> Barito Utara </item>
+        <item> Gunung Mas </item>
+        <item> Kapuas </item>
+        <item> Katingan </item>
+        <item> Kotawaringin Barat </item>
+        <item> Kotawaringin Timur </item>
+        <item> Lamandau </item>
+        <item> Murung Raya </item>
+        <item> Pulau Pisang </item>
+        <item> Sukamar </item>
+        <item> Seruyan </item>
+        <item> Kota Palangka Raya </item>
+        <!--            Kalimantan timur-->
+        <item> Berau </item>
+        <item> Kutai Barat </item>
+        <item> Kutai Kartanegara </item>
+        <item> Kutai Timur </item>
+        <item> Mahakam Ulu </item>
+        <item> Paser </item>
+        <item> Penajam Paser Utara </item>
+        <item> Kota Balikpapan </item>
+        <item> Kota Bontang </item>
+        <item> Kota Samarinda </item>
+        <!--            Kalimantan Utara -->
+        <item> Bulungan </item>
+        <item> Malinau </item>
+        <item> Nunukan </item>
+        <item> Tana Tidung </item>
+        <item> Kota Tarakan </item>
+        <!--            Gorontalo -->
+        <item> Boalemo </item>
+        <item> Bone Bolango </item>
+        <item> Gorontalo </item>
+        <item> Gorontalo Utara </item>
+        <item> Pohuwato </item>
+        <item> Kota Gorontalo </item>
+        <!--            Sulawesi Barat -->
+        <item> Majene </item>
+        <item> Mamasa </item>
+        <item> Mamuju </item>
+        <item> Mamuju Tengah </item>
+        <item> Pasangkayu </item>
+        <item> Polewali Mandar </item>
+        <!--            Sulawesi Selatan -->
+        <item> Bantaeng </item>
+        <item> Barru </item>
+        <item> Bone </item>
+        <item> Bulukumba </item>
+        <item> Enrekang </item>
+        <item> Gowa </item>
+        <item> Jeneponto </item>
+        <item> Kepulauan Selayar </item>
+        <item> Luwu </item>
+        <item> Luwu Timur </item>
+        <item> Luwu Utara </item>
+        <item> Maros </item>
+        <item> Pangkajene </item>
+        <item> Pinrang </item>
+        <item> Sidenreng Rappang </item>
+        <item> Sinjau </item>
+        <item> Soppeng </item>
+        <item> Takalr </item>
+        <item> Toraja </item>
+        <item> Toraja Utara </item>
+        <item> Wajo </item>
+        <item> Kota Makasar </item>
+        <item> Kota Palopo </item>
+        <item> Kota Pare Pare </item>
+        <!--            Sulawesi Tenggara-->
+        <item> Bombana </item>
+        <item> Buton </item>
+        <item> Buton Selatan </item>
+        <item> Buton Tengah </item>
+        <item> Buton Utara </item>
+        <item> Kolaka </item>
+        <item> Kolaka Timur </item>
+        <item> Kolaka Utara </item>
+        <item> Konawe </item>
+        <item> Konawe Kepulauan </item>
+        <item> Konawe Selatan </item>
+        <item> Konawe Utara </item>
+        <item> Muna </item>
+        <item> Muna Barat </item>
+        <item> Wakatobi </item>
+        <item> Kota Bau-bau </item>
+        <item> Kota Kendari </item>
+        <!--            Sulawesi Tengah -->
+        <item> Banggai </item>
+        <item> Banggai Kepulauan </item>
+        <item> Banggai Laut </item>
+        <item> Buol </item>
+        <item> Donggala </item>
+        <item> Morowali </item>
+        <item> Morowali Utara </item>
+        <item> Parigi Moutong </item>
+        <item> Poso </item>
+        <item> Sigi </item>
+        <item> Tojo Una-una </item>
+        <item> Toli-toli </item>
+        <item> Kota Palu </item>
+        <!--            Sulawesi Utara-->
+        <item> Bolaang Mongondow </item>
+        <item> Bolang Mongondow Selatan </item>
+        <item> Bolang Mongondow Timur </item>
+        <item> Bolang Mongondow Utara</item>
+        <item> Kepulauan Sangihe </item>
+        <item> Minahasa </item>
+        <item> Kepulauan Talaud </item>
+        <item> Kepulauan Siau Tagulandang Biaro </item>
+        <item> Minahasa Selatan </item>
+        <item> Minahasa Tenggara </item>
+        <item> Minahasa Utara </item>
+        <item> Kota Bitung </item>
+        <item> Kota Kotamobagu </item>
+        <item> Kota Manado </item>
+        <item> Kota Tomohon </item>
+        <!--            Kepulauan Maluku-->
+        <item> Buru </item>
+        <item> Buru Selatan </item>
+        <item> Kepulauan Aru </item>
+        <item> Maluku Barat Daya </item>
+        <item> Maluku Tenggara </item>
+        <item> Maluku Tengah </item>
+        <item> Kepulauan Tanimbar </item>
+        <item> Seram Bagian Barat </item>
+        <item> Seram Bagian Timur </item>
+        <item> Kota Ambon </item>
+        <item> Kota Tual </item>
+
+        <!--            Maluku Utara -->
+        <item> Halmahera Barat </item>
+        <item> Halmahera Tengah </item>
+        <item> Halmahera Timur </item>
+        <item> Halmahera Selatan </item>
+        <item> Halmahera Utara </item>
+        <item> Kepulauan Sula </item>
+        <item> Pulau Morotali </item>
+        <item> Pulau Taliabu </item>
+        <item> Kota Ternate </item>
+        <item> Kota Tidore Kepulauan </item>
+        <!--            Papua -->
+        <item> Asmat </item>
+        <item> Biak Numfor </item>
+        <item> Boven Dogoel </item>
+        <item> Deiyai </item>
+        <item> Dogiyai </item>
+        <item> Intan Jaya </item>
+        <item> Jayapura </item>
+        <item> Jayawijaya </item>
+        <item> Keerom </item>
+        <item> Kepulauan Yapen </item>
+        <item> Lanny Jaya </item>
+        <item> Mamberamo Raya </item>
+        <item> Mamberamo Tengah </item>
+        <item> Mappi </item>
+        <item> Merauke </item>
+        <item> Mimika </item>
+        <item> Nabire </item>
+        <item> Nduga </item>
+        <item> Paniai </item>
+        <item> Pegunungan Bintang </item>
+        <item> Puncak </item>
+        <item> Puncak Jaya </item>
+        <item> Sarmi </item>
+        <item> Supiori </item>
+        <item> Tolikara </item>
+        <item> Waropen </item>
+        <item> Yahukimo </item>
+        <item> Yalimo </item>
+        <item> Kota Jayapura </item>
+        <!--            Papua Barat -->
+        <item> Fakfak </item>
+        <item> Kaimana </item>
+        <item> Manokwari </item>
+        <item> Manokwari Selatan </item>
+        <item> Maybrat </item>
+        <item> Pegunungan Arfak </item>
+        <item> Raja Ampat </item>
+        <item> Sorong </item>
+        <item> Sorong Selatan </item>
+        <item> Tambrauw </item>
+        <item> Teluk Bintuni </item>
+        <item> Teluk Wondama </item>
+        <item> Kota Sorong </item>
+    </string-array>
 </resources>

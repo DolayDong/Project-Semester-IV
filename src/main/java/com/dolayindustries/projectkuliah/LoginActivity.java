@@ -3,6 +3,7 @@ package com.dolayindustries.projectkuliah;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -20,6 +21,7 @@ import android.widget.Toast;
 
 import com.dolayindustries.projectkuliah.admin.HalamanAdminActivity;
 import com.dolayindustries.projectkuliah.database.DataHelper;
+import com.dolayindustries.projectkuliah.service.AppService;
 import com.dolayindustries.projectkuliah.user.HalamanUserActivity;
 
 public class LoginActivity extends AppCompatActivity {
@@ -31,8 +33,8 @@ public class LoginActivity extends AppCompatActivity {
         return dataRole;
     }
 
-    private String dataLogin, dataRole, dataUsrname;
-    private Cursor cursor;
+    private String dataLogin;
+    private String dataRole;
     private Button buttonLogin;
     private ProgressBar loadingLogin;
     private TextView textViewBuatAkun;
@@ -42,8 +44,7 @@ public class LoginActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
-        Toast.makeText(this, "onCreate()", Toast.LENGTH_SHORT).show();
-        
+
         inisialisasiElement();
         
         buttonLogin.setOnClickListener(v -> namaDanPasswordValid());
@@ -55,7 +56,7 @@ public class LoginActivity extends AppCompatActivity {
         SharedPreferences sharedPreferences = getApplicationContext().getSharedPreferences("DATA_LOGIN", Context.MODE_PRIVATE);
         dataLogin = sharedPreferences.getString("login", null);
         dataRole = sharedPreferences.getString("role", null);
-        dataUsrname = sharedPreferences.getString("username", null);
+        String dataUsrname = sharedPreferences.getString("username", null);
 
         if (dataLogin != null && dataLogin.equalsIgnoreCase("pindah")) {
             SharedPreferences.Editor preferencesEditor = sharedPreferences.edit();
@@ -86,24 +87,6 @@ public class LoginActivity extends AppCompatActivity {
         /*akhir cek login*/
     }
 
-    @Override
-    protected void onPause() {
-        super.onPause();
-        Toast.makeText(this, "onPause()", Toast.LENGTH_SHORT).show();
-    }
-
-    @Override
-    protected void onResume() {
-        super.onResume();
-        Toast.makeText(this, "onResume()", Toast.LENGTH_SHORT).show();
-    }
-
-    @Override
-    protected void onDestroy() {
-        super.onDestroy();
-        Toast.makeText(this, "onDestroy()", Toast.LENGTH_SHORT).show();
-    }
-
     private void inisialisasiElement(){
         editTextNamaPengguna = findViewById(R.id.e_text_username_login);
         editTextPasswordPengguna = findViewById(R.id.e_text_password_login);
@@ -112,23 +95,30 @@ public class LoginActivity extends AppCompatActivity {
         textViewBuatAkun = findViewById(R.id.t_view_buat_akun);
     }
 
-    private void pindahHalamanRegistrasi(){
+    private void pindahHalamanRegistrasi() {
         Intent pindahKeRegistrasi = new Intent(LoginActivity.this, RegistrasiActivity.class);
         startActivity(pindahKeRegistrasi);
         this.finish();
     }
 
-    private void namaDanPasswordValid(){
+    @Override
+    protected void onResume() {
+        super.onResume();
+        stopService(new Intent(getApplicationContext(), AppService.class));
+    }
+
+    private void namaDanPasswordValid() {
         DataHelper dataHelper = new DataHelper(this);
         SQLiteDatabase database = dataHelper.getReadableDatabase();
-        cursor = database.rawQuery("SELECT * FROM tabelakun WHERE username ='" + editTextNamaPengguna.getText().toString() + "';",null);
+        @SuppressLint("Recycle")
+        Cursor cursor = database.rawQuery("SELECT * FROM tabelakun WHERE username ='" + editTextNamaPengguna.getText().toString() + "';", null);
         cursor.moveToFirst();
 
-        if (dataValid()){
+        if (dataValid()) {
             loadingLogin.setVisibility(View.VISIBLE);
-            if (cursor.getCount() > 0){
-                if (editTextPasswordPengguna.getText().toString().equals(String.valueOf(cursor.getString(4)))){
-                    if (cursor.getInt(3) == 1){
+            if (cursor.getCount() > 0) {
+                if (editTextPasswordPengguna.getText().toString().equals(String.valueOf(cursor.getString(4)))) {
+                    if (cursor.getInt(3) == 1) {
                         pindahHalamanAdmin();
                     } else {
                         pindahHalamanUser();

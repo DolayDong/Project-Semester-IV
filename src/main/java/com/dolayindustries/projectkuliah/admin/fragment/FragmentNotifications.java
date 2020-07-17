@@ -13,6 +13,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.dolayindustries.projectkuliah.R;
 import com.dolayindustries.projectkuliah.adapter.AdapterRecyclerViewNotifikasiAdmin;
@@ -25,6 +26,8 @@ import java.util.ArrayList;
  * A simple {@link Fragment} subclass.
  */
 public class FragmentNotifications extends Fragment {
+    private ArrayList<DataNotifikasiAdmin> dataNotifikasiAdmins = new ArrayList<>();
+
 
     public FragmentNotifications() {
         // Required empty public constructor
@@ -38,13 +41,10 @@ public class FragmentNotifications extends Fragment {
         View view = inflater.inflate(R.layout.fragment_notifications_admin, container, false);
 
         RecyclerView recyclerViewNotifikasiAdmin = view.findViewById(R.id.recycler_view_notif_admin);
-        ArrayList<DataNotifikasiAdmin> dataNotifikasiAdmins = new ArrayList<>();
 
         TextView textViewNoNotif = view.findViewById(R.id.no_notif);
         if (addDataNotifAdmin().getCount() > 0) {
             textViewNoNotif.setVisibility(View.GONE);
-
-            dataNotifikasiAdmins.add(new DataNotifikasiAdmin(getResources().getDrawable(R.drawable.ic_done_all_black_24dp), addDataNotifAdmin().getString(8) + " " + addDataNotifAdmin().getString(10)));
         }
 
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(this.getContext());
@@ -62,8 +62,10 @@ public class FragmentNotifications extends Fragment {
         SQLiteDatabase database = dataHelper.getReadableDatabase();
 
         @SuppressLint("Recycle")
-        Cursor cursor = database.rawQuery("SELECT * FROM tabelpengajuan WHERE dibaca = 'terkirim';", null);
-        cursor.moveToFirst();
+        Cursor cursor = database.rawQuery("SELECT * FROM tabelpengajuan WHERE dibaca = 'terkirim' ORDER BY id_pengajuan DESC;", null);
+        while (cursor.moveToNext()) {
+            dataNotifikasiAdmins.add(new DataNotifikasiAdmin(cursor.getInt(0), getResources().getDrawable(R.drawable.ic_done_all_black_24dp), cursor.getString(8) + " " + cursor.getString(10)));
+        }
 
         return cursor;
     }

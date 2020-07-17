@@ -38,9 +38,12 @@ public class AdapterRecyclerViewNotifikasiAdmin extends RecyclerView.Adapter<Ada
     public void onBindViewHolder(@NonNull MyViewHolder holder, final int position) {
         holder.textViewStatusAdmin.setImageDrawable(dataNotificationAdmins.get(position).getStatusNotif());
         holder.textViewTanggalDikirim.setText(dataNotificationAdmins.get(position).getTanggalDiajukan());
+        holder.textViewIdPengaju.setText(String.valueOf(dataNotificationAdmins.get(position).getIdPengaju()));
 
         holder.itemView.setOnClickListener(v -> {
-            Toast.makeText(holder.itemView.getContext(), String.valueOf(dataNotificationAdmins.get(position).getStatusNotif()), Toast.LENGTH_SHORT).show();
+            Intent pindhDetail = new Intent(v.getContext(), DetailNotifikasi.class);
+            pindhDetail.putExtra("id_pengaju", holder.textViewIdPengaju.getText().toString());
+            v.getContext().startActivity(pindhDetail);
 
         });
 
@@ -52,12 +55,12 @@ public class AdapterRecyclerViewNotifikasiAdmin extends RecyclerView.Adapter<Ada
     }
 
     static class MyViewHolder extends RecyclerView.ViewHolder {
-        private TextView textViewNotifAdmin, textViewTinjauAdmin, textViewTanggalDikirim;
+        private TextView textViewNotifAdmin, textViewTinjauAdmin, textViewTanggalDikirim, textViewIdPengaju;
         private ImageView textViewStatusAdmin;
 
         MyViewHolder(@NonNull View itemView) {
             super(itemView);
-
+            textViewIdPengaju = itemView.findViewById(R.id.text_view_id_pengaju);
             textViewNotifAdmin = itemView.findViewById(R.id.text_view_notif_admin);
             textViewTinjauAdmin = itemView.findViewById(R.id.text_view_tinjau_admin);
             textViewTanggalDikirim = itemView.findViewById(R.id.text_view_tanggal_pengajuan_admin);

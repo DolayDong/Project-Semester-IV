@@ -16,12 +16,12 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.dolayindustries.projectkuliah.LoginActivity;
 import com.dolayindustries.projectkuliah.R;
 import com.dolayindustries.projectkuliah.database.DataHelper;
 import com.dolayindustries.projectkuliah.service.AppService;
@@ -30,7 +30,7 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
-import java.util.Objects;
+import java.util.concurrent.atomic.AtomicReference;
 
 import static android.content.Context.MODE_PRIVATE;
 
@@ -38,12 +38,12 @@ import static android.content.Context.MODE_PRIVATE;
  * A simple {@link Fragment} subclass.
  */
 public class FragmentPengajuan extends Fragment {
-    private String dataJurusan, dataNamaKampus, dataNimPengaju, dataNamaPengaju, dataTanggalLahirPengaju, dataAlamatRumahPengaju;
+    private String dataJurusan, dataTempatLahir, dataNamaKampus, dataNimPengaju, dataNamaPengaju, dataTanggalLahirPengaju, dataAlamatRumahPengaju, tanggalPengajuan, waktuPengajuan;
     private TextView textViewAjukanSurat, textViewBatalAjukanSurat;
     private DatePickerDialog datePickerDialog;
     private Calendar calendar;
     private Cursor cursor;
-    private Spinner spinnerDataJurusan, spinnerDataNamaKampus;
+    private Spinner spinnerDataJurusan, spinnerDataNamaKampus, spinnerTempatLahir;
     private EditText editTextNimPengaju, editTextNamaPengaju, editTextTanggalLahirPengaju, editTextAlamatPengaju;
 
 
@@ -102,7 +102,23 @@ public class FragmentPengajuan extends Fragment {
                 @Override
                 public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                     dataNamaKampus = spinnerDataNamaKampus.getSelectedItem().toString();
-                    Toast.makeText(getContext(), dataNamaKampus, Toast.LENGTH_SHORT).show();
+                }
+
+                @Override
+                public void onNothingSelected(AdapterView<?> parent) {
+
+                }
+            });
+
+            /*spinner untuk data tempat lahir*/
+            ArrayAdapter<CharSequence> adapterTempatLahir = ArrayAdapter.createFromResource(requireContext(), R.array.kabupaten, android.R.layout.simple_spinner_item);
+            adapterSpinnerDataKampus.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+            spinnerTempatLahir.setAdapter(adapterTempatLahir);
+
+            spinnerTempatLahir.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+                @Override
+                public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                    dataTempatLahir = spinnerTempatLahir.getSelectedItem().toString();
                 }
 
                 @Override
@@ -134,11 +150,15 @@ public class FragmentPengajuan extends Fragment {
             });
 
             alertDialogPengajuanSurat.setView(viewPengajuan);
+            alertDialogPengajuanSurat.setCancelable(false);
 
             textViewAjukanSurat.setOnClickListener(v1 -> {
-                alertDialogPengajuanSurat.dismiss();
-                inputDatabase();
-                
+                if (validasiInput()) {
+                    alertDialogPengajuanSurat.dismiss();
+                    inputDatabase();
+                }
+
+
             });
 
             textViewBatalAjukanSurat.setOnClickListener(v1 -> alertDialogPengajuanSurat.cancel());
@@ -157,6 +177,7 @@ public class FragmentPengajuan extends Fragment {
         editTextTanggalLahirPengaju = view.findViewById(R.id.data_tanggal_lahir_pengajuan);
         spinnerDataNamaKampus = view.findViewById(R.id.spinner_nama_kampus);
         spinnerDataJurusan = view.findViewById(R.id.spinner_data_jurusan_pengajuan);
+        spinnerTempatLahir = view.findViewById(R.id.spinner_tempat_lahir);
     }
 
     private void inputDatabase() {
@@ -167,7 +188,7 @@ public class FragmentPengajuan extends Fragment {
 
         DataHelper dataHelper = new DataHelper(getContext());
         SQLiteDatabase database = dataHelper.getWritableDatabase();
-        database.execSQL("INSERT INTO tabelpengajuan(username, jurusan, statusapprove, dibaca, namakampus, jenispengajuan, tanggalpengajuan, alamatpengaju, tanggallahir, waktupengajuan) VALUES('" + dataNimPengaju + "', '" + dataJurusan + "', 'tidak', 'terkirim', '" + dataNamaKampus + "', 'Surat Pernyataan', date('now'), '" + dataAlamatRumahPengaju + "', '" + dataTanggalLahirPengaju + "', time('now','localtime'));");
+        database.execSQL("INSERT INTO tabelpengajuan(username, jurusan, statusapprove, dibaca, namakampus, jenispengajuan, tanggalpengajuan, alamatpengaju, tanggallahir, waktupengajuan, tempatlahir) VALUES('" + dataNimPengaju + "', '" + dataJurusan + "', 'tidak', 'terkirim', '" + dataNamaKampus + "', 'Surat Pernyataan', date('now'), '" + dataAlamatRumahPengaju + "', '" + dataTanggalLahirPengaju + "', time('now', 'localtime'), '" + dataTempatLahir + "');");
 
         if (database.isDatabaseIntegrityOk()) {
             SharedPreferences HapusStatusLogin = requireContext().getSharedPreferences("DATA_LOGIN", MODE_PRIVATE);
@@ -186,5 +207,26 @@ public class FragmentPengajuan extends Fragment {
             Toast.makeText(getContext(), "Data Tidak Terkirim", Toast.LENGTH_SHORT).show();
         }
 
+    }
+
+    private boolean validasiInput() {
+        boolean valid = true;
+        if (editTextAlamatPengaju.getText().toString().isEmpty()) {
+            editTextAlamatPengaju.setError("harap isi alamat anda");
+            editTextAlamatPengaju.requestFocus();
+            valid = false;
+        } else if (editTextAlamatPengaju.getText().length() < 5) {
+            editTextAlamatPengaju.setError("kayanya alamatnya terlalu pendek deh");
+            editTextAlamatPengaju.requestFocus();
+            valid = false;
+        }
+
+        if (editTextTanggalLahirPengaju.getText().toString().isEmpty()) {
+            editTextTanggalLahirPengaju.setError("harap isi tanggal lahir anda");
+            editTextTanggalLahirPengaju.requestFocus();
+            valid = false;
+        }
+
+        return valid;
     }
 }

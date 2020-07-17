@@ -72,7 +72,7 @@ public class FragmentNotifications extends Fragment {
         DataHelper dataHelper = new DataHelper(getContext());
         SQLiteDatabase database = dataHelper.getReadableDatabase();
         @SuppressLint("Recycle")
-        Cursor cursor = database.rawQuery("SELECT * FROM tabelpengajuan WHERE username = '" + ((HalamanUserActivity) requireActivity()).getDataNimDariSharedPreferences() + "' ORDER BY tanggalpengajuan ASC;", null);
+        Cursor cursor = database.rawQuery("SELECT * FROM tabelpengajuan WHERE username = '" + ((HalamanUserActivity) requireActivity()).getDataNimDariSharedPreferences() + "' ORDER BY id_pengajuan DESC;", null);
         cursor.moveToFirst();
 
         if (cursor.getCount() > 0) {

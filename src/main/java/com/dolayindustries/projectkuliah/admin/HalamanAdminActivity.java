@@ -92,12 +92,9 @@ public class HalamanAdminActivity extends AppCompatActivity {
 
         assert dataRole != null;
         if (dataLogin != null && !dataRole.equalsIgnoreCase("admin")) {
-
             Intent intentLogin = new Intent(this, LoginActivity.class);
             startActivity(intentLogin);
         }
-
-
 
     }
 
