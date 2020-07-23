@@ -1,17 +1,16 @@
 package com.dolayindustries.projectkuliah;
 
-import androidx.appcompat.app.AlertDialog;
-import androidx.appcompat.app.AppCompatActivity;
-
+import android.Manifest;
 import android.annotation.SuppressLint;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Paint;
+import android.net.Uri;
 import android.os.Bundle;
+import android.provider.Settings;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -19,10 +18,20 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.appcompat.app.AlertDialog;
+import androidx.appcompat.app.AppCompatActivity;
+
 import com.dolayindustries.projectkuliah.admin.HalamanAdminActivity;
 import com.dolayindustries.projectkuliah.database.DataHelper;
 import com.dolayindustries.projectkuliah.service.AppService;
 import com.dolayindustries.projectkuliah.user.HalamanUserActivity;
+import com.karumi.dexter.Dexter;
+import com.karumi.dexter.MultiplePermissionsReport;
+import com.karumi.dexter.PermissionToken;
+import com.karumi.dexter.listener.PermissionRequest;
+import com.karumi.dexter.listener.multi.MultiplePermissionsListener;
+
+import java.util.List;
 
 public class LoginActivity extends AppCompatActivity {
     public String getDataLogin() {
@@ -46,45 +55,64 @@ public class LoginActivity extends AppCompatActivity {
         setContentView(R.layout.activity_login);
 
         inisialisasiElement();
-        
-        buttonLogin.setOnClickListener(v -> namaDanPasswordValid());
 
-        textViewBuatAkun.setPaintFlags(Paint.UNDERLINE_TEXT_FLAG);
-        textViewBuatAkun.setOnClickListener(v -> pindahHalamanRegistrasi());
+        Dexter.withContext(this)
+                .withPermissions(Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.INTERNET, Manifest.permission.READ_EXTERNAL_STORAGE)
+                .withListener(new MultiplePermissionsListener() {
+                    @Override
+                    public void onPermissionsChecked(MultiplePermissionsReport multiplePermissionsReport) {
 
-        /*cek login */
-        SharedPreferences sharedPreferences = getApplicationContext().getSharedPreferences("DATA_LOGIN", Context.MODE_PRIVATE);
-        dataLogin = sharedPreferences.getString("login", null);
-        dataRole = sharedPreferences.getString("role", null);
-        String dataUsrname = sharedPreferences.getString("username", null);
+                        buttonLogin.setOnClickListener(v -> namaDanPasswordValid());
 
-        if (dataLogin != null && dataLogin.equalsIgnoreCase("pindah")) {
-            SharedPreferences.Editor preferencesEditor = sharedPreferences.edit();
-            //jika logout diclick, maka data login dihapus
-            preferencesEditor.remove("username").apply();
-            preferencesEditor.remove("role").apply();
+                        textViewBuatAkun.setPaintFlags(Paint.UNDERLINE_TEXT_FLAG);
+                        textViewBuatAkun.setOnClickListener(v -> pindahHalamanRegistrasi());
 
-            Toast.makeText(this, String.valueOf(dataLogin), Toast.LENGTH_SHORT).show();
-        }
+                        /*cek login */
+                        SharedPreferences sharedPreferences = getApplicationContext().getSharedPreferences("DATA_LOGIN", Context.MODE_PRIVATE);
+                        dataLogin = sharedPreferences.getString("login", null);
+                        dataRole = sharedPreferences.getString("role", null);
+                        String dataUsrname = sharedPreferences.getString("username", null);
 
+                        if (dataLogin != null && dataLogin.equalsIgnoreCase("pindah")) {
+                            SharedPreferences.Editor preferencesEditor = sharedPreferences.edit();
+                            //jika logout diclick, maka data login dihapus
+                            preferencesEditor.remove("username").apply();
+                            preferencesEditor.remove("role").apply();
 
-        //cek apakah sebelumnya user sudah login. jika ya
-        if (dataLogin != null && dataLogin.equalsIgnoreCase("ya")) {
-            assert dataRole != null;
-            if (dataRole.equalsIgnoreCase("user")) {
-                //langsung lempar ke activity menu user
-                Intent intentActivityMenuUser = new Intent(getApplicationContext(), HalamanUserActivity.class);
-                startActivity(intentActivityMenuUser);
-                this.finish();
-            } else {
-                //activity menu admin
-                Intent intentActivityMenuAdmin = new Intent(getApplicationContext(), HalamanAdminActivity.class);
-                startActivity(intentActivityMenuAdmin);
-                this.finish();
-            }
+                            Toast.makeText(LoginActivity.this, String.valueOf(dataLogin), Toast.LENGTH_SHORT).show();
+                        }
 
-        }
-        /*akhir cek login*/
+                        //cek apakah sebelumnya user sudah login. jika ya
+                        if (dataLogin != null && dataLogin.equalsIgnoreCase("ya")) {
+                            assert dataRole != null;
+                            if (dataRole.equalsIgnoreCase("user")) {
+                                //langsung lempar ke activity menu user
+                                Intent intentActivityMenuUser = new Intent(getApplicationContext(), HalamanUserActivity.class);
+                                startActivity(intentActivityMenuUser);
+                                LoginActivity.this.finish();
+                            } else {
+                                //activity menu admin
+                                Intent intentActivityMenuAdmin = new Intent(getApplicationContext(), HalamanAdminActivity.class);
+                                startActivity(intentActivityMenuAdmin);
+                                LoginActivity.this.finish();
+                            }
+
+                        }
+                        /*akhir cek login*/
+
+                    }
+
+                    @Override
+                    public void onPermissionRationaleShouldBeShown(List<PermissionRequest> list, PermissionToken permissionToken) {
+                        Toast.makeText(LoginActivity.this, "Aplikasi tidak diberi ijin mengakses data karu memori", Toast.LENGTH_SHORT).show();
+                        Intent intentUbahPersetujuan = new Intent();
+                        intentUbahPersetujuan.setAction(Settings.ACTION_APPLICATION_DETAILS_SETTINGS);
+                        Uri uri = Uri.fromParts("package", getPackageName(), null);
+                        intentUbahPersetujuan.setData(uri);
+                        startActivity(intentUbahPersetujuan);
+                    }
+                }).check();
+
     }
 
     private void inisialisasiElement(){

@@ -1,14 +1,21 @@
 package com.dolayindustries.projectkuliah.user.fragment;
 
-import android.annotation.SuppressLint;
-import android.app.Dialog;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
+import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.EditText;
+import android.widget.ImageView;
+import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -18,28 +25,20 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.cardview.widget.CardView;
 import androidx.fragment.app.Fragment;
 
-import android.view.KeyEvent;
-import android.view.LayoutInflater;
-import android.view.Menu;
-import android.view.MenuInflater;
-import android.view.MenuItem;
-import android.view.View;
-import android.view.ViewGroup;
-import android.widget.EditText;
-import android.widget.TextView;
-import android.widget.Toast;
-
 import com.dolayindustries.projectkuliah.LoginActivity;
 import com.dolayindustries.projectkuliah.R;
 import com.dolayindustries.projectkuliah.database.DataHelper;
 import com.dolayindustries.projectkuliah.user.HalamanUserActivity;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
 
-import java.util.Objects;
+import static com.dolayindustries.projectkuliah.admin.HalamanAdminActivity.setGambar;
 
 /**
  * A simple {@link Fragment} subclass.
  */
 public class FragmentAccount extends Fragment{
+    private ImageView imageViewPp;
     private TextView buttonPerbarui, buttonBatalPerbarui;
     private EditText editTextUpdateUsername, editTextUpdateNama, editTextUpdatePasswprdLama, editTextUpdatePasswordBaru, editTextUpdateEmail;
     private TextView textViewUsername, textViewNama, textViewPassword, textViewEmail;
@@ -63,31 +62,38 @@ public class FragmentAccount extends Fragment{
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_account_user, container, false);
         Toolbar toolbar = view.findViewById(R.id.toolbar);
-        ((AppCompatActivity)requireActivity()).setSupportActionBar(toolbar);
+        ((AppCompatActivity) requireActivity()).setSupportActionBar(toolbar);
         toolbar.setTitle(null);
         toolbar.setBackgroundColor(getResources().getColor(R.color.colorPrimaryDark));
         toolbar.setOverflowIcon(getResources().getDrawable(R.drawable.ic_eject_black_24dp));
 
         inisialisasiElmenet(view);
-        /* awal ambil data akun dari database */
         String dataUsername = ((HalamanUserActivity) requireActivity()).getDataNimDariSharedPreferences();
+        imageViewPp.setOnClickListener(v -> {
+            Toast.makeText(getContext(), "Maaf, belum ada fitur Update untuk foto", Toast.LENGTH_SHORT).show();
+        });
+        /* mengambil data gambar dari firebase storage*/
+        StorageReference storage = FirebaseStorage.getInstance().getReference().child("profil").child(dataUsername);
+
+        setGambar(storage, imageViewPp, getContext());
+
         DataHelper dataHelper = new DataHelper(getContext());
         SQLiteDatabase database = dataHelper.getReadableDatabase();
         cursor = database.rawQuery("SELECT * FROM tabelakun WHERE username ='" + dataUsername + "'", null);
         cursor.moveToFirst();
 
-            for (int jumlah = 0; jumlah < cursor.getCount(); jumlah++){
-                cursor.moveToPosition(jumlah);
-                textViewUsername.setText(cursor.getString(0));
-                textViewNama.setText(cursor.getString(1));
-                textViewEmail.setText(cursor.getString(2));
-                textViewPassword.setText(cursor.getString(4));
-            }
-            /* akhir ambil data akun*/
+        for (int jumlah = 0; jumlah < cursor.getCount(); jumlah++) {
+            cursor.moveToPosition(jumlah);
+            textViewUsername.setText(cursor.getString(0));
+            textViewNama.setText(cursor.getString(1));
+            textViewEmail.setText(cursor.getString(2));
+            textViewPassword.setText(cursor.getString(4));
+        }
+        /* akhir ambil data akun*/
 
         passwordDariDatabase = cursor.getString(4);
 
-        cardViewDataAkun.setOnClickListener(v ->{
+        cardViewDataAkun.setOnClickListener(v -> {
             CharSequence[] pilihan = {"Update Data", "Hapus Akun"};
             AlertDialog.Builder alertPilihan = new AlertDialog.Builder(requireContext());
             alertPilihan.setTitle("Pilihan");
@@ -157,9 +163,6 @@ public class FragmentAccount extends Fragment{
             alertPilihan.create().show();
         });
 
-
-        
-        
         return view;
     }
 
@@ -179,6 +182,7 @@ public class FragmentAccount extends Fragment{
     }
 
     private void inisialisasiElmenet(View view){
+        imageViewPp = view.findViewById(R.id.image_pp);
         buttonBatalPerbarui = view.findViewById(R.id.button_batal_perbarui_data);
         buttonPerbarui = view.findViewById(R.id.button_perbarui_data);
         textViewEmail = view.findViewById(R.id.text_view_list_email);

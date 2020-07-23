@@ -1,0 +1,381 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".user.report.ReportActivity">
+
+    <androidx.cardview.widget.CardView
+        android:layout_marginVertical="10dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Data Yang anda kirimkan"
+                android:textAlignment="center"
+                android:paddingVertical="10dp"
+                android:textStyle="bold" />
+
+            <LinearLayout
+                android:gravity="center"
+                android:orientation="vertical"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Data Pengaju"
+                    android:textStyle="bold"
+                    android:paddingVertical="5dp"
+                    android:textAlignment="center" />
+
+                <LinearLayout
+                    android:paddingStart="10dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    tools:ignore="RtlSymmetry">
+
+                    <LinearLayout
+                        android:orientation="horizontal"
+                        android:gravity="center_horizontal"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content">
+
+                        <TextView
+                            android:paddingVertical="5dp"
+                            android:paddingStart="20dp"
+                            android:layout_width="130dp"
+                            android:textStyle="bold"
+                            android:layout_height="wrap_content"
+                            android:text="Nama"
+                            tools:ignore="RtlSymmetry" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text=" : " />
+
+                        <TextView
+                            android:id="@+id/tv_value_nama_pengaju_user"
+                            android:paddingHorizontal="1dp"
+                            android:paddingVertical="5dp"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="Value Nama" />
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:orientation="horizontal"
+                        android:gravity="center_horizontal"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content">
+
+                        <TextView
+                            android:paddingVertical="5dp"
+                            android:paddingStart="20dp"
+                            android:layout_width="130dp"
+                            android:textStyle="bold"
+                            android:layout_height="wrap_content"
+                            android:text="Nim"
+                            tools:ignore="RtlSymmetry" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text=" : " />
+
+                        <TextView
+                            android:id="@+id/tv_value_nim_pengaju_user"
+                            android:layout_width="match_parent"
+                            android:layout_height="41dp"
+                            android:paddingHorizontal="1dp"
+                            android:paddingVertical="5dp"
+                            android:text="Value Nim" />
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:orientation="horizontal"
+                        android:gravity="center_horizontal"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content">
+
+                        <TextView
+                            android:paddingVertical="5dp"
+                            android:paddingStart="20dp"
+                            android:layout_width="130dp"
+                            android:textStyle="bold"
+                            android:layout_height="wrap_content"
+                            android:text="Alamat"
+                            tools:ignore="RtlSymmetry" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text=" : " />
+
+                        <TextView
+                            android:id="@+id/tv_value_alamat_pengaju_user"
+                            android:paddingHorizontal="1dp"
+                            android:paddingVertical="5dp"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="Value Alamat" />
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:orientation="horizontal"
+                        android:gravity="center_horizontal"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content">
+
+                        <TextView
+                            android:paddingVertical="5dp"
+                            android:paddingStart="20dp"
+                            android:layout_width="130dp"
+                            android:textStyle="bold"
+                            android:layout_height="wrap_content"
+                            android:text="Tempat/Tanggal Lahir"
+                            tools:ignore="RtlSymmetry" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text=" : " />
+
+                        <TextView
+                            android:id="@+id/tv_value_ttl_pengaju_user"
+                            android:paddingHorizontal="1dp"
+                            android:paddingVertical="5dp"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="Value Ttl" />
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:orientation="horizontal"
+                        android:gravity="center_horizontal"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content">
+
+                        <TextView
+                            android:paddingVertical="5dp"
+                            android:paddingStart="20dp"
+                            android:layout_width="130dp"
+                            android:textStyle="bold"
+                            android:layout_height="wrap_content"
+                            android:text="Jurusan"
+                            tools:ignore="RtlSymmetry" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text=" : " />
+
+                        <TextView
+                            android:id="@+id/tv_value_jurusan_pengaju_user"
+                            android:paddingHorizontal="1dp"
+                            android:paddingVertical="5dp"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="Value Jurusan" />
+
+                    </LinearLayout>
+
+                    <TextView
+                        android:paddingVertical="10dp"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Data Orang Tua / Wali"
+                        android:textAlignment="center"
+                        android:textStyle="bold" />
+
+                    <LinearLayout
+                        android:orientation="horizontal"
+                        android:gravity="center_horizontal"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content">
+
+                        <TextView
+                            android:paddingVertical="5dp"
+                            android:paddingStart="20dp"
+                            android:layout_width="130dp"
+                            android:textStyle="bold"
+                            android:layout_height="wrap_content"
+                            android:text="Nama"
+                            tools:ignore="RtlSymmetry" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text=" : " />
+
+                        <TextView
+                            android:id="@+id/tv_value_nama_orang_tua_user"
+                            android:paddingHorizontal="1dp"
+                            android:paddingVertical="5dp"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="Value Nama Orang Tua" />
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:orientation="horizontal"
+                        android:gravity="center_horizontal"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content">
+
+                        <TextView
+                            android:paddingVertical="5dp"
+                            android:paddingStart="20dp"
+                            android:layout_width="130dp"
+                            android:textStyle="bold"
+                            android:layout_height="wrap_content"
+                            android:text="Pekerjaan"
+                            tools:ignore="RtlSymmetry" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text=" : " />
+
+                        <TextView
+                            android:id="@+id/tv_value_pekerjaan_orang_tua_user"
+                            android:paddingHorizontal="1dp"
+                            android:paddingVertical="5dp"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="Value Pekerjaan Orang Tua" />
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:orientation="horizontal"
+                        android:gravity="center_horizontal"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content">
+
+                        <TextView
+                            android:paddingVertical="5dp"
+                            android:paddingStart="20dp"
+                            android:layout_width="130dp"
+                            android:textStyle="bold"
+                            android:layout_height="wrap_content"
+                            android:text="Alamat"
+                            tools:ignore="RtlSymmetry" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text=" : " />
+
+                        <TextView
+                            android:id="@+id/tv_value_alamat_orang_tua_user"
+                            android:paddingHorizontal="1dp"
+                            android:paddingVertical="5dp"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="Value Alamat Orang Tua" />
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:orientation="horizontal"
+                        android:weightSum="2"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+
+                        <TextView
+                            android:layout_weight="1"
+                            android:paddingVertical="10dp"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="Tanggal Disetujui"
+                            android:textAlignment="center"
+                            android:textStyle="bold|italic" />
+
+                        <TextView
+                            android:layout_weight="1"
+                            android:paddingVertical="10dp"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="Disetujui Oleh"
+                            android:textAlignment="center"
+                            android:textStyle="bold|italic" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:orientation="horizontal"
+                        android:weightSum="2"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+
+                        <TextView
+                            android:layout_weight="1"
+                            android:id="@+id/tanggal_approve"
+                            android:paddingVertical="10dp"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="Tanggal Disetujui"
+                            android:textAlignment="center"
+                            android:textStyle="bold|italic" />
+
+                        <TextView
+                            android:id="@+id/tv_value_disetujui_oleh"
+                            android:layout_weight="1"
+                            android:paddingVertical="10dp"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="Value Disetujui Oleh"
+                            android:textAlignment="center"
+                            android:textStyle="bold|italic" />
+
+                    </LinearLayout>
+
+                </LinearLayout>
+            </LinearLayout>
+        </LinearLayout>
+    </androidx.cardview.widget.CardView>
+
+    <LinearLayout
+        android:layout_alignParentBottom="true"
+        android:paddingVertical="10dp"
+        android:weightSum="2"
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <Button
+            android:id="@+id/btn_print_pdf"
+            android:layout_marginHorizontal="10dp"
+            android:textColor="@color/warnaPutih"
+            android:background="@drawable/gaya_kustom_tombol"
+            android:layout_weight="1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Print Document" />
+
+        <Button
+            android:id="@+id/btn_kembali"
+            android:textColor="@color/warnaPutih"
+            android:layout_marginHorizontal="10dp"
+            android:background="@drawable/gaya_kustom_tombol"
+            android:layout_weight="1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Kembali" />
+    </LinearLayout>
+</RelativeLayout>

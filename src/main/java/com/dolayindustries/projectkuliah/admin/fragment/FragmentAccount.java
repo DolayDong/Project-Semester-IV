@@ -6,18 +6,6 @@ import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
-
-import com.dolayindustries.projectkuliah.LoginActivity;
-import com.dolayindustries.projectkuliah.admin.HalamanAdminActivity;
-import com.dolayindustries.projectkuliah.database.DataHelper;
-import com.dolayindustries.projectkuliah.user.HalamanUserActivity;
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AlertDialog;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.Toolbar;
-import androidx.cardview.widget.CardView;
-import androidx.fragment.app.Fragment;
-
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -26,10 +14,25 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
+import androidx.cardview.widget.CardView;
+import androidx.fragment.app.Fragment;
+
+import com.dolayindustries.projectkuliah.LoginActivity;
 import com.dolayindustries.projectkuliah.R;
+import com.dolayindustries.projectkuliah.admin.HalamanAdminActivity;
+import com.dolayindustries.projectkuliah.database.DataHelper;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
+
+import static com.dolayindustries.projectkuliah.admin.HalamanAdminActivity.setGambar;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -37,7 +40,7 @@ import com.dolayindustries.projectkuliah.R;
  * create an instance of this fragment.
  */
 public class FragmentAccount extends Fragment {
-
+    private ImageView imageViewPp;
     private TextView buttonPerbarui, buttonBatalPerbarui;
     private EditText editTextUpdateUsername, editTextUpdateNama, editTextUpdatePasswprdLama, editTextUpdatePasswordBaru, editTextUpdateEmail;
     private TextView textViewUsername, textViewNama, textViewPassword, textViewEmail;
@@ -92,20 +95,25 @@ public class FragmentAccount extends Fragment {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_account_admin, container, false);
         Toolbar toolbar = view.findViewById(R.id.toolbar);
-        ((AppCompatActivity)requireActivity()).setSupportActionBar(toolbar);
+        ((AppCompatActivity) requireActivity()).setSupportActionBar(toolbar);
         toolbar.setTitle(null);
         toolbar.setBackgroundColor(getResources().getColor(R.color.colorPrimaryDark));
         toolbar.setOverflowIcon(getResources().getDrawable(R.drawable.ic_eject_black_24dp));
+        String dataUsername = ((HalamanAdminActivity) requireActivity()).getDataNimDariSharedPreferences();
 
         inisialisasiElmenet(view);
+        /* awal mengambil data gambar dari firebase storage */
+        StorageReference storageReference = FirebaseStorage.getInstance().getReference().child("profil").child(dataUsername);
+        // method static pada halaman admin
+        setGambar(storageReference, imageViewPp, getContext());
+
         /* awal ambil data akun dari database */
-        String dataUsername = ((HalamanAdminActivity) requireActivity()).getDataNimDariSharedPreferences();
         DataHelper dataHelper = new DataHelper(getContext());
         SQLiteDatabase database = dataHelper.getReadableDatabase();
         cursor = database.rawQuery("SELECT * FROM tabelakun WHERE username ='" + dataUsername + "'", null);
         cursor.moveToFirst();
 
-        for (int jumlah = 0; jumlah < cursor.getCount(); jumlah++){
+        for (int jumlah = 0; jumlah < cursor.getCount(); jumlah++) {
             cursor.moveToPosition(jumlah);
             textViewUsername.setText(cursor.getString(0));
             textViewNama.setText(cursor.getString(1));
@@ -200,6 +208,7 @@ public class FragmentAccount extends Fragment {
         return super.onOptionsItemSelected(item);
     }
     private void inisialisasiElmenet(View view){
+        imageViewPp = view.findViewById(R.id.image_pp_admin);
         buttonBatalPerbarui = view.findViewById(R.id.button_batal_perbarui_data);
         buttonPerbarui = view.findViewById(R.id.button_perbarui_data);
         textViewEmail = view.findViewById(R.id.tv_list_email_admin);

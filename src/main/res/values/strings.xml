@@ -35,6 +35,9 @@
     <string name="sandi_lama_update_data_hint">sandi lama</string>
     <string name="sandi_baru_update_data_hint">sandi baru</string>
 
+    <!--    surat -->
+    <string name="value_perihal">Lorem ipsum dolor sit amet, consectetur adipiscing elit. In dignissim lobortis purus vitae tempor. Proin pulvinar vel massa at condimentum. Morbi augue ligula, maximus faucibus aliquam ac, vulputate commodo mi. Vivamus vitae est at sapien dictum malesuada. Curabitur lectus tortor, accumsan vitae convallis et, luctus at orci. Quisque interdum nulla quis dapibus cursus. Ut arcu diam, eleifend vel maximus quis, volutpat quis dui. Donec et ex convallis, faucibus libero in, sagittis ipsum. Curabitur eget arcu ligula. Vestibulum porttitor, nibh mollis tempor tristique, diam nisi varius justo, id aliquam ipsum risus condimentum lectus.</string>
+
     <!--array untuk spinner -->
     <!--data jurusan-->
     <string-array name="dataJurusan">

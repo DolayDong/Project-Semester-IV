@@ -17,6 +17,12 @@
             android:paddingVertical="5dp">
 
             <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/t_view_id_pengajuan_user"
+                android:visibility="gone" />
+
+            <TextView
                 android:id="@+id/text_view_notif"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"

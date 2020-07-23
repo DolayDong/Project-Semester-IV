@@ -17,18 +17,13 @@
             android:background="?attr/colorPrimary"
             android:minHeight="?attr/actionBarSize"
             android:theme="?attr/actionBarWidgetTheme" />
-        <androidx.appcompat.widget.LinearLayoutCompat
-            android:layout_width="match_parent"
-            android:layout_height="170dp"
-            android:background="@color/warnaSilver">
-
             <ImageView
+                android:scaleType="centerCrop"
+                android:id="@+id/image_pp"
                 android:layout_width="match_parent"
                 android:layout_height="170dp"
-                android:src="@drawable/ic_account_circle_black_24dp"
                 android:contentDescription="@string/logo_account" />
 
-        </androidx.appcompat.widget.LinearLayoutCompat>
 
         <ScrollView
             android:layout_width="match_parent"

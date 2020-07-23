@@ -1,0 +1,69 @@
+{
+  "project_info": {
+    "project_number": "1047551372778",
+    "firebase_url": "https://go-akademik.firebaseio.com",
+    "project_id": "go-akademik",
+    "storage_bucket": "go-akademik.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1047551372778:android:b349048459be0349f99693",
+        "android_client_info": {
+          "package_name": "com.dolayindustries.cobauploadimage"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1047551372778-vhbnicbaige012f1dmqu5cq5l4q13fit.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDboLF0lHRcCikXCbybV1srNKEq4AWs0Pc"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1047551372778-vhbnicbaige012f1dmqu5cq5l4q13fit.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1047551372778:android:15e05aa1b71c08a6f99693",
+        "android_client_info": {
+          "package_name": "com.dolayindustries.projectkuliah"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1047551372778-vhbnicbaige012f1dmqu5cq5l4q13fit.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDboLF0lHRcCikXCbybV1srNKEq4AWs0Pc"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1047551372778-vhbnicbaige012f1dmqu5cq5l4q13fit.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

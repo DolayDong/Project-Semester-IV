@@ -2,14 +2,12 @@ package com.dolayindustries.projectkuliah.user.fragment;
 
 import android.graphics.drawable.AnimationDrawable;
 import android.os.Bundle;
-
-import androidx.cardview.widget.CardView;
-import androidx.fragment.app.Fragment;
-
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Toast;
+
+import androidx.cardview.widget.CardView;
+import androidx.fragment.app.Fragment;
 
 import com.dolayindustries.projectkuliah.R;
 

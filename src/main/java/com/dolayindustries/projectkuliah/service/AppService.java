@@ -1,11 +1,9 @@
 package com.dolayindustries.projectkuliah.service;
 
-import android.app.Notification;
 import android.app.PendingIntent;
 import android.app.Service;
 import android.content.Intent;
 import android.os.IBinder;
-import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 import androidx.core.app.NotificationCompat;
@@ -13,7 +11,6 @@ import androidx.core.app.NotificationManagerCompat;
 
 import com.dolayindustries.projectkuliah.LoginActivity;
 import com.dolayindustries.projectkuliah.R;
-import com.dolayindustries.projectkuliah.admin.HalamanAdminActivity;
 
 public class AppService extends Service {
     private static final String CHANEL_ID = "notif_untuk_admin";
@@ -22,7 +19,6 @@ public class AppService extends Service {
     @Nullable
     @Override
     public IBinder onBind(Intent intent) {
-        Toast.makeText(this, "onBind()", Toast.LENGTH_SHORT).show();
         return null;
     }
 
@@ -30,7 +26,6 @@ public class AppService extends Service {
     public void onCreate() {
         super.onCreate();
 
-        Toast.makeText(this, "onCreate() ServiceApp", Toast.LENGTH_SHORT).show();
     }
 
     @Override

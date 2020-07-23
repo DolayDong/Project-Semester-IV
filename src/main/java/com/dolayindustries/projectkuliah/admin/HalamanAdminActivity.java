@@ -1,32 +1,40 @@
 package com.dolayindustries.projectkuliah.admin;
 
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.app.NotificationCompat;
-import androidx.core.app.NotificationManagerCompat;
-import androidx.viewpager.widget.ViewPager;
-
 import android.annotation.SuppressLint;
-import android.app.NotificationChannel;
-import android.app.NotificationManager;
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
-import android.os.Build;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.Bundle;
+import android.widget.ImageView;
 import android.widget.Toast;
+
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.viewpager.widget.ViewPager;
 
 import com.dolayindustries.projectkuliah.LoginActivity;
 import com.dolayindustries.projectkuliah.R;
 import com.dolayindustries.projectkuliah.adapter.MyAdapterViewPager;
+import com.dolayindustries.projectkuliah.admin.fragment.FragmentAccount;
 import com.dolayindustries.projectkuliah.admin.fragment.FragmentHome;
 import com.dolayindustries.projectkuliah.admin.fragment.FragmentNotifications;
-import com.dolayindustries.projectkuliah.admin.fragment.FragmentAccount;
 import com.dolayindustries.projectkuliah.database.DataHelper;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.material.badge.BadgeDrawable;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.google.firebase.storage.FileDownloadTask;
+import com.google.firebase.storage.OnProgressListener;
+import com.google.firebase.storage.StorageReference;
+
+import java.io.File;
+import java.io.IOException;
 
 public class HalamanAdminActivity extends AppCompatActivity {
 
@@ -139,14 +147,48 @@ public class HalamanAdminActivity extends AppCompatActivity {
         SQLiteDatabase database = dataHelper.getReadableDatabase();
 
         @SuppressLint("Recycle")
-        Cursor cursor = database.rawQuery("SELECT * FROM tabelpengajuan WHERE dibaca = 'terkirim';", null);
+        Cursor cursor = database.rawQuery("SELECT * FROM tabelpengajuan WHERE dibaca = 'terkirim' AND statusapprove = 'tidak';", null);
         bottomNavigationView.getOrCreateBadge(R.id.menu_notifikasi_admin);
         BadgeDrawable badgeDrawableNotifikasi = bottomNavigationView.getBadge(R.id.menu_notifikasi_admin);
-
         jumlahNotifikasi = cursor.getCount();
         assert badgeDrawableNotifikasi != null;
-        badgeDrawableNotifikasi.setNumber(cursor.getCount());
+        if (jumlahNotifikasi != 0) {
+            badgeDrawableNotifikasi.setNumber(cursor.getCount());
+        } else {
+            badgeDrawableNotifikasi.setVisible(false);
+        }
     }
 
+    public static void setGambar(final StorageReference storageReference, ImageView imageView, Context contextProgress) {
+        try {
+            ProgressDialog progressDialog = new ProgressDialog(contextProgress);
+            progressDialog.setTitle("Sedang mengambil data gambar...");
+            progressDialog.show();
+
+            File file = File.createTempFile("image", "jpg");
+            storageReference.getFile(file).addOnSuccessListener(new OnSuccessListener<FileDownloadTask.TaskSnapshot>() {
+                @Override
+                public void onSuccess(FileDownloadTask.TaskSnapshot taskSnapshot) {
+                    progressDialog.dismiss();
+                    Bitmap bitmap = BitmapFactory.decodeFile(file.getAbsolutePath());
+                    imageView.setImageBitmap(bitmap);
+                }
+            }).addOnFailureListener(new OnFailureListener() {
+                @Override
+                public void onFailure(@NonNull Exception e) {
+                    progressDialog.dismiss();
+                    Toast.makeText(contextProgress, e.getMessage(), Toast.LENGTH_SHORT).show();
+                }
+            }).addOnProgressListener(new OnProgressListener<FileDownloadTask.TaskSnapshot>() {
+                @Override
+                public void onProgress(@NonNull FileDownloadTask.TaskSnapshot taskSnapshot) {
+                    double progress = (100.0 * taskSnapshot.getBytesTransferred() / taskSnapshot.getTotalByteCount());
+                    progressDialog.setMessage((int) progress + "% sedang mengambil data gambar. harap tunggu");
+                }
+            });
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
 
 }

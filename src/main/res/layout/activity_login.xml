@@ -41,7 +41,7 @@
                     android:layout_height="wrap_content"
                     android:autofillHints="@string/username_hint"
                     android:inputType="numberDecimal" />
-                <EditText
+                <com.scottyab.showhidepasswordedittext.ShowHidePasswordEditText
                     android:drawablePadding="7dp"
                     android:drawableStart="@drawable/ic_lock_outline_black_24dp"
                     android:textColorHint="@color/colorPrimaryDark"
@@ -50,10 +50,12 @@
                     android:id="@+id/e_text_password_login"
                     android:layout_marginVertical="20sp"
                     android:layout_width="match_parent"
+                    app:drawable_show="@drawable/ic_sembunyikan_password"
+                    app:drawable_hide="@drawable/ic_tampil_password"
                     android:layout_height="wrap_content"
                     android:hint="@string/password_hint"
                     android:autofillHints="@string/password_hint"
-                    android:inputType="textPassword"/>
+                    android:inputType="textPassword" />
                 <Button
                     android:id="@+id/tombol_login"
                     android:textColor="@color/warnaPutih"

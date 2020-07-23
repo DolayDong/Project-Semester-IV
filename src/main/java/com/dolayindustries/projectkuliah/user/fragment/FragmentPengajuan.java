@@ -8,19 +8,17 @@ import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
-
-import androidx.fragment.app.Fragment;
-
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
-import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import androidx.fragment.app.Fragment;
 
 import com.dolayindustries.projectkuliah.R;
 import com.dolayindustries.projectkuliah.database.DataHelper;
@@ -30,7 +28,6 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
-import java.util.concurrent.atomic.AtomicReference;
 
 import static android.content.Context.MODE_PRIVATE;
 
@@ -38,13 +35,17 @@ import static android.content.Context.MODE_PRIVATE;
  * A simple {@link Fragment} subclass.
  */
 public class FragmentPengajuan extends Fragment {
-    private String dataJurusan, dataTempatLahir, dataNamaKampus, dataNimPengaju, dataNamaPengaju, dataTanggalLahirPengaju, dataAlamatRumahPengaju, tanggalPengajuan, waktuPengajuan;
+    private String dataJurusan;
+    private String dataTempatLahir;
+    private String dataNamaKampus;
+    private String tanggalPengajuan;
+    private String waktuPengajuan;
     private TextView textViewAjukanSurat, textViewBatalAjukanSurat;
     private DatePickerDialog datePickerDialog;
     private Calendar calendar;
     private Cursor cursor;
     private Spinner spinnerDataJurusan, spinnerDataNamaKampus, spinnerTempatLahir;
-    private EditText editTextNimPengaju, editTextNamaPengaju, editTextTanggalLahirPengaju, editTextAlamatPengaju;
+    private EditText editTextNimPengaju, editTextNamaPengaju, editTextTanggalLahirPengaju, editTextAlamatPengaju, editTextNamaOrangTua, editTextAlamatOrangTua, editTextPekerjaanOrangTua;
 
 
     public FragmentPengajuan() {
@@ -164,11 +165,14 @@ public class FragmentPengajuan extends Fragment {
             textViewBatalAjukanSurat.setOnClickListener(v1 -> alertDialogPengajuanSurat.cancel());
             alertDialogPengajuanSurat.show();
         });
-    
+
         return view;
     }
 
-    private void inisialisasiElement(View view){
+    private void inisialisasiElement(View view) {
+        editTextNamaOrangTua = view.findViewById(R.id.data_nama_ortu_pengaju);
+        editTextPekerjaanOrangTua = view.findViewById(R.id.data_pekerjaan_ortu_pengaju);
+        editTextAlamatOrangTua = view.findViewById(R.id.data_alamat_ortu_pengajuan);
         textViewAjukanSurat = view.findViewById(R.id.text_view_ajukan_surat);
         textViewBatalAjukanSurat = view.findViewById(R.id.text_view_batal_ajukan_surat);
         editTextAlamatPengaju = view.findViewById(R.id.data_alamat_pengajuan);
@@ -181,14 +185,15 @@ public class FragmentPengajuan extends Fragment {
     }
 
     private void inputDatabase() {
-        dataNimPengaju = editTextNimPengaju.getText().toString();
-        dataNamaPengaju = editTextNamaPengaju.getText().toString();
-        dataTanggalLahirPengaju = editTextTanggalLahirPengaju.getText().toString();
-        dataAlamatRumahPengaju = editTextAlamatPengaju.getText().toString();
-
+        String dataNimPengaju = editTextNimPengaju.getText().toString();
+        String dataTanggalLahirPengaju = editTextTanggalLahirPengaju.getText().toString();
+        String dataAlamatRumahPengaju = editTextAlamatPengaju.getText().toString();
+        String dataNamaOrangTua = editTextNamaOrangTua.getText().toString();
+        String dataPekerjaanOrangTua = editTextPekerjaanOrangTua.getText().toString();
+        String dataAlamatOrangTua = editTextAlamatOrangTua.getText().toString();
         DataHelper dataHelper = new DataHelper(getContext());
         SQLiteDatabase database = dataHelper.getWritableDatabase();
-        database.execSQL("INSERT INTO tabelpengajuan(username, jurusan, statusapprove, dibaca, namakampus, jenispengajuan, tanggalpengajuan, alamatpengaju, tanggallahir, waktupengajuan, tempatlahir) VALUES('" + dataNimPengaju + "', '" + dataJurusan + "', 'tidak', 'terkirim', '" + dataNamaKampus + "', 'Surat Pernyataan', date('now'), '" + dataAlamatRumahPengaju + "', '" + dataTanggalLahirPengaju + "', time('now', 'localtime'), '" + dataTempatLahir + "');");
+        database.execSQL("INSERT INTO tabelpengajuan(username, jurusan, statusapprove, dibaca, namakampus, jenispengajuan, tanggalpengajuan, alamatpengaju, tanggallahir, waktupengajuan, tempatlahir, namaorangtua, pekerjaanorangtua, alamatorangtua, tanggalapprove, idadmin) VALUES('" + dataNimPengaju + "', '" + dataJurusan + "', 'tidak', 'terkirim', '" + dataNamaKampus + "', 'Surat Pernyataan', date('now'), '" + dataAlamatRumahPengaju + "', '" + dataTanggalLahirPengaju + "', time('now', 'localtime'), '" + dataTempatLahir + "', '" + dataNamaOrangTua + "', '" + dataPekerjaanOrangTua + "', '" + dataAlamatOrangTua + "', null, null);");
 
         if (database.isDatabaseIntegrityOk()) {
             SharedPreferences HapusStatusLogin = requireContext().getSharedPreferences("DATA_LOGIN", MODE_PRIVATE);
@@ -224,6 +229,21 @@ public class FragmentPengajuan extends Fragment {
         if (editTextTanggalLahirPengaju.getText().toString().isEmpty()) {
             editTextTanggalLahirPengaju.setError("harap isi tanggal lahir anda");
             editTextTanggalLahirPengaju.requestFocus();
+            valid = false;
+        }
+        if (editTextNamaOrangTua.getText().toString().isEmpty()) {
+            editTextNamaOrangTua.setError("isi field nama orang tua / wali");
+            editTextNamaOrangTua.requestFocus();
+            valid = false;
+        }
+        if (editTextAlamatOrangTua.getText().toString().isEmpty()) {
+            editTextAlamatOrangTua.setError("isi field ini");
+            editTextAlamatOrangTua.requestFocus();
+            valid = false;
+        }
+        if (editTextPekerjaanOrangTua.getText().toString().isEmpty()) {
+            editTextPekerjaanOrangTua.setError("field ini tidak boleh kosong");
+            editTextPekerjaanOrangTua.requestFocus();
             valid = false;
         }
 

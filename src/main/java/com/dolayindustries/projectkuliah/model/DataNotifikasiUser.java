@@ -3,6 +3,11 @@ package com.dolayindustries.projectkuliah.model;
 import android.graphics.drawable.Drawable;
 
 public class DataNotifikasiUser {
+    public int getIdPengajuan() {
+        return idPengajuan;
+    }
+
+    private int idPengajuan;
 
     public String getTanggalPengajuan() {
         return tanggalPengajuan;
@@ -16,16 +21,8 @@ public class DataNotifikasiUser {
         return judulNotif;
     }
 
-    public void setJudulNotif(String judulNotif) {
-        this.judulNotif = judulNotif;
-    }
-
     public String getStatusApprove() {
         return statusApprove;
-    }
-
-    public void setStatusApprove(String statusApprove) {
-        this.statusApprove = statusApprove;
     }
 
     public Drawable getStatusPengiriman() {
@@ -33,8 +30,8 @@ public class DataNotifikasiUser {
     }
 
 
-
-    public DataNotifikasiUser(String tanggalPengajuan, String judulNotif, String statusApprove, Drawable statusPengiriman) {
+    public DataNotifikasiUser(int idPengajuan, String tanggalPengajuan, String judulNotif, String statusApprove, Drawable statusPengiriman) {
+        this.idPengajuan = idPengajuan;
         this.tanggalPengajuan = tanggalPengajuan;
         this.judulNotif = judulNotif;
         this.statusApprove = statusApprove;
