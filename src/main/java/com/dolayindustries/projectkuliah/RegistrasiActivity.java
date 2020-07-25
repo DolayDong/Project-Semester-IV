@@ -1,6 +1,6 @@
 package com.dolayindustries.projectkuliah;
 
-import android.Manifest;
+import android.annotation.SuppressLint;
 import android.app.ProgressDialog;
 import android.content.ContentResolver;
 import android.content.Context;
@@ -23,12 +23,6 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.dolayindustries.projectkuliah.database.DataHelper;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
-import com.karumi.dexter.Dexter;
-import com.karumi.dexter.PermissionToken;
-import com.karumi.dexter.listener.PermissionDeniedResponse;
-import com.karumi.dexter.listener.PermissionGrantedResponse;
-import com.karumi.dexter.listener.PermissionRequest;
-import com.karumi.dexter.listener.single.PermissionListener;
 
 import java.io.File;
 
@@ -38,7 +32,6 @@ public class RegistrasiActivity extends AppCompatActivity {
     private Button buttonDaftar, buttonPilihFoto;
     private DataHelper dataHelper;
     private Uri filePath;
-    private Cursor cursor;
 
     private final int PICK_IMAGE_REQUEST = 71;
 
@@ -49,31 +42,14 @@ public class RegistrasiActivity extends AppCompatActivity {
         inisialisasiElementLayout();
         dataHelper = new DataHelper(this);
 
-        Dexter.withContext(RegistrasiActivity.this).withPermission(Manifest.permission.READ_EXTERNAL_STORAGE).withListener(new PermissionListener() {
-            @Override
-            public void onPermissionGranted(PermissionGrantedResponse permissionGrantedResponse) {
-                buttonPilihFoto.setOnClickListener(v -> {
-                    pilihFoto();
-                });
-                textViewMasuk.setOnClickListener(v -> pindahHalamanMasuk());
-                buttonDaftar.setOnClickListener(v -> {
-                    if (validInputDataUser()) {
-                        uploadFoto();
-                    }
-                });
+        buttonPilihFoto.setOnClickListener(v -> pilihFoto());
 
+        textViewMasuk.setOnClickListener(v -> pindahHalamanMasuk());
+        buttonDaftar.setOnClickListener(v -> {
+            if (validInputDataUser()) {
+                uploadFoto();
             }
-
-            @Override
-            public void onPermissionDenied(PermissionDeniedResponse permissionDeniedResponse) {
-
-            }
-
-            @Override
-            public void onPermissionRationaleShouldBeShown(PermissionRequest permissionRequest, PermissionToken permissionToken) {
-
-            }
-        }).check();
+        });
     }
 
     private void uploadFoto() {
@@ -182,7 +158,8 @@ public class RegistrasiActivity extends AppCompatActivity {
     private void insertData() {
 
         SQLiteDatabase databaseRead = dataHelper.getReadableDatabase();
-        cursor = databaseRead.rawQuery("SELECT * FROM tabelakun WHERE username ='" + editTextNim.getText().toString() + "';", null);
+        @SuppressLint("Recycle")
+        Cursor cursor = databaseRead.rawQuery("SELECT * FROM tabelakun WHERE username ='" + editTextNim.getText().toString() + "';", null);
         cursor.moveToFirst();
         if (cursor.getCount() > 0) {
             AlertDialog.Builder alertDialogSudahAdaPengguna = new AlertDialog.Builder(RegistrasiActivity.this);

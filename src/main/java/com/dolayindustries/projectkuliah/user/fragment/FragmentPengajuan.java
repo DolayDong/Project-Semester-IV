@@ -193,7 +193,7 @@ public class FragmentPengajuan extends Fragment {
         String dataAlamatOrangTua = editTextAlamatOrangTua.getText().toString();
         DataHelper dataHelper = new DataHelper(getContext());
         SQLiteDatabase database = dataHelper.getWritableDatabase();
-        database.execSQL("INSERT INTO tabelpengajuan(username, jurusan, statusapprove, dibaca, namakampus, jenispengajuan, tanggalpengajuan, alamatpengaju, tanggallahir, waktupengajuan, tempatlahir, namaorangtua, pekerjaanorangtua, alamatorangtua, tanggalapprove, idadmin) VALUES('" + dataNimPengaju + "', '" + dataJurusan + "', 'tidak', 'terkirim', '" + dataNamaKampus + "', 'Surat Pernyataan', date('now'), '" + dataAlamatRumahPengaju + "', '" + dataTanggalLahirPengaju + "', time('now', 'localtime'), '" + dataTempatLahir + "', '" + dataNamaOrangTua + "', '" + dataPekerjaanOrangTua + "', '" + dataAlamatOrangTua + "', null, null);");
+        database.execSQL("INSERT INTO tabelpengajuan(username, jurusan, statusapprove, dibaca, namakampus, jenispengajuan, tanggalpengajuan, alamatpengaju, tanggallahir, waktupengajuan, tempatlahir, namaorangtua, pekerjaanorangtua, alamatorangtua, tanggalapprove, idadmin, dibacauser) VALUES('" + dataNimPengaju + "', '" + dataJurusan + "', 'tidak', 'terkirim', '" + dataNamaKampus + "', 'Surat Pernyataan', date('now'), '" + dataAlamatRumahPengaju + "', '" + dataTanggalLahirPengaju + "', time('now', 'localtime'), '" + dataTempatLahir + "', '" + dataNamaOrangTua + "', '" + dataPekerjaanOrangTua + "', '" + dataAlamatOrangTua + "', null, null, 0);");
 
         if (database.isDatabaseIntegrityOk()) {
             SharedPreferences HapusStatusLogin = requireContext().getSharedPreferences("DATA_LOGIN", MODE_PRIVATE);

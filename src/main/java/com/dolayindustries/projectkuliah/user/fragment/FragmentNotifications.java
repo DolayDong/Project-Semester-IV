@@ -1,6 +1,8 @@
 package com.dolayindustries.projectkuliah.user.fragment;
 
 import android.annotation.SuppressLint;
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
@@ -25,11 +27,12 @@ import java.util.ArrayList;
  */
 public class FragmentNotifications extends Fragment {
     private ArrayList<DataNotifikasiUser> dataNotificationsTerkirimUser;
+    int jumlahNotitikasiUser = 0;
+
 
     public FragmentNotifications() {
         // Required empty public constructor
     }
-
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -44,11 +47,14 @@ public class FragmentNotifications extends Fragment {
         /*set notif terkirim*/
         RecyclerView.LayoutManager layoutManagerTerkirim = new LinearLayoutManager(this.getContext());
         recyclerViewTerkirim.setLayoutManager(layoutManagerTerkirim);
-        RecyclerView.Adapter adapterTerkirim = new AdapterRecyclerViewNotifUser(dataNotificationsTerkirimUser);
+        RecyclerView.Adapter adapterTerkirim = new AdapterRecyclerViewNotifUser(dataNotificationsTerkirimUser, requireActivity().getApplicationContext());
         adapterTerkirim.notifyDataSetChanged();
         recyclerViewTerkirim.setAdapter(adapterTerkirim);
         /*akhir notif terkirim*/
 
+        if (jumlahNotif() == 0) {
+            simpanJumlahNotif(jumlahNotitikasiUser);
+        }
         return view;
     }
 
@@ -70,14 +76,30 @@ public class FragmentNotifications extends Fragment {
                     if (cursor.getString(4).equals("belum")) {
                         dataNotificationsTerkirimUser.add(new DataNotifikasiUser(cursor.getInt(0), cursor.getString(8) + " " + cursor.getString(10), cursor.getString(7), "Belum Disetujui", getResources().getDrawable(R.drawable.ic_done_all_blue_24dp)));
                     } else if (cursor.getString(4).equals("setuju")) {
+                        // notifikasi disetujui
+                        jumlahNotitikasiUser++;
                         dataNotificationsTerkirimUser.add(new DataNotifikasiUser(cursor.getInt(0), cursor.getString(8) + " " + cursor.getString(10), cursor.getString(7), "Disetujui", getResources().getDrawable(R.drawable.ic_done_all_blue_24dp)));
                     } else {
                         dataNotificationsTerkirimUser.add(new DataNotifikasiUser(cursor.getInt(0), cursor.getString(8) + " " + cursor.getString(10), cursor.getString(7), "Tidak Disetujui", getResources().getDrawable(R.drawable.ic_done_all_blue_24dp)));
                     }
-                } else{
+                } else {
                     dataNotificationsTerkirimUser.add(new DataNotifikasiUser(cursor.getInt(0), cursor.getString(8) + " " + cursor.getString(10), cursor.getString(7), " - ", getResources().getDrawable(R.drawable.ic_done_all_black_24dp)));
                 }
             }
         }
     }
+
+    private void simpanJumlahNotif(int jumlah) {
+        SharedPreferences jumlahDisetujui = requireActivity().getSharedPreferences(HalamanUserActivity.PREFERENCES, Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = jumlahDisetujui.edit();
+        editor.putInt(HalamanUserActivity.KEY, jumlah);
+        editor.apply();
+    }
+
+    private int jumlahNotif() {
+        SharedPreferences jumlahDisetujui = requireActivity().getSharedPreferences(HalamanUserActivity.PREFERENCES, Context.MODE_PRIVATE);
+        return jumlahDisetujui.getInt(HalamanUserActivity.KEY, 0);
+    }
+
+
 }

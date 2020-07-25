@@ -2,6 +2,8 @@ package com.dolayindustries.projectkuliah.user;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -10,16 +12,20 @@ import androidx.viewpager.widget.ViewPager;
 import com.dolayindustries.projectkuliah.LoginActivity;
 import com.dolayindustries.projectkuliah.R;
 import com.dolayindustries.projectkuliah.adapter.MyAdapterViewPager;
-import com.dolayindustries.projectkuliah.admin.HalamanAdminActivity;
+import com.dolayindustries.projectkuliah.database.DataHelper;
 import com.dolayindustries.projectkuliah.user.fragment.FragmentAccount;
 import com.dolayindustries.projectkuliah.user.fragment.FragmentHome;
 import com.dolayindustries.projectkuliah.user.fragment.FragmentNotifications;
 import com.dolayindustries.projectkuliah.user.fragment.FragmentPengajuan;
+import com.google.android.material.badge.BadgeDrawable;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 public class HalamanUserActivity extends AppCompatActivity {
-
+    DataHelper dataHelper;
     private ViewPager viewPager;
+    public static final String PREFERENCES = "ITEM_DIKLIK";
+    public static final String KEY = "id";
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -30,10 +36,11 @@ public class HalamanUserActivity extends AppCompatActivity {
         setViewPage(viewPager);
 
         BottomNavigationView bottomNavigationView = findViewById(R.id.bottom_navigation_menu_user);
+        bottomNavigationView.getOrCreateBadge(R.id.menu_notifikasi_user);
         bottomNavigationView.setOnNavigationItemSelectedListener(menuItem -> {
-            switch (menuItem.getItemId()){
+            switch (menuItem.getItemId()) {
                 case R.id.menu_home_user:
-                    viewPager.setCurrentItem(0,true);
+                    viewPager.setCurrentItem(0, true);
                     break;
                 case R.id.menu_ajukan_user:
                     viewPager.setCurrentItem(1, true);
@@ -66,11 +73,7 @@ public class HalamanUserActivity extends AppCompatActivity {
 
             }
         });
-        HalamanAdminActivity halamanAdminActivity = new HalamanAdminActivity();
-        int jumlah = halamanAdminActivity.getJumlahNotifikasi();
-        if (jumlah > 0) {
-//            tampilNotifikasi();
-        }
+        addJumlahNotifDisetujui(bottomNavigationView);
     }
 
     private void setViewPage(ViewPager viewPageParam){
@@ -109,5 +112,21 @@ public class HalamanUserActivity extends AppCompatActivity {
 
         return sharedPreferences.getString("username", null);
     }
+
+    public void addJumlahNotifDisetujui(BottomNavigationView bottomNavigationView) {
+        bottomNavigationView.getOrCreateBadge(R.id.menu_notifikasi_user);
+        BadgeDrawable badgeDrawableNotifUser = bottomNavigationView.getBadge(R.id.menu_notifikasi_user);
+        dataHelper = new DataHelper(getApplicationContext());
+        SQLiteDatabase database = dataHelper.getReadableDatabase();
+        Cursor cursor = database.rawQuery("SELECT * FROM tabelpengajuan WHERE dibacauser = 0;", null);
+        cursor.moveToFirst();
+        assert badgeDrawableNotifUser != null;
+        if (cursor.getCount() > 0) {
+            badgeDrawableNotifUser.setNumber(cursor.getCount());
+        } else {
+            badgeDrawableNotifUser.setVisible(false);
+        }
+    }
+
 
 }

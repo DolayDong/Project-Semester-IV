@@ -14,7 +14,6 @@ import android.os.Bundle;
 import android.widget.ImageView;
 import android.widget.Toast;
 
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.viewpager.widget.ViewPager;
 
@@ -25,12 +24,8 @@ import com.dolayindustries.projectkuliah.admin.fragment.FragmentAccount;
 import com.dolayindustries.projectkuliah.admin.fragment.FragmentHome;
 import com.dolayindustries.projectkuliah.admin.fragment.FragmentNotifications;
 import com.dolayindustries.projectkuliah.database.DataHelper;
-import com.google.android.gms.tasks.OnFailureListener;
-import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.material.badge.BadgeDrawable;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
-import com.google.firebase.storage.FileDownloadTask;
-import com.google.firebase.storage.OnProgressListener;
 import com.google.firebase.storage.StorageReference;
 
 import java.io.File;
@@ -39,13 +34,6 @@ import java.io.IOException;
 public class HalamanAdminActivity extends AppCompatActivity {
 
     private ViewPager viewPager;
-
-    public int getJumlahNotifikasi() {
-        return jumlahNotifikasi;
-    }
-
-    private static int jumlahNotifikasi;
-
 
 
     @Override
@@ -147,10 +135,10 @@ public class HalamanAdminActivity extends AppCompatActivity {
         SQLiteDatabase database = dataHelper.getReadableDatabase();
 
         @SuppressLint("Recycle")
-        Cursor cursor = database.rawQuery("SELECT * FROM tabelpengajuan WHERE dibaca = 'terkirim' AND statusapprove = 'tidak';", null);
+        Cursor cursor = database.rawQuery("SELECT * FROM tabelpengajuan WHERE dibaca = 'terkirim';", null);
         bottomNavigationView.getOrCreateBadge(R.id.menu_notifikasi_admin);
         BadgeDrawable badgeDrawableNotifikasi = bottomNavigationView.getBadge(R.id.menu_notifikasi_admin);
-        jumlahNotifikasi = cursor.getCount();
+        int jumlahNotifikasi = cursor.getCount();
         assert badgeDrawableNotifikasi != null;
         if (jumlahNotifikasi != 0) {
             badgeDrawableNotifikasi.setNumber(cursor.getCount());
@@ -166,25 +154,16 @@ public class HalamanAdminActivity extends AppCompatActivity {
             progressDialog.show();
 
             File file = File.createTempFile("image", "jpg");
-            storageReference.getFile(file).addOnSuccessListener(new OnSuccessListener<FileDownloadTask.TaskSnapshot>() {
-                @Override
-                public void onSuccess(FileDownloadTask.TaskSnapshot taskSnapshot) {
-                    progressDialog.dismiss();
-                    Bitmap bitmap = BitmapFactory.decodeFile(file.getAbsolutePath());
-                    imageView.setImageBitmap(bitmap);
-                }
-            }).addOnFailureListener(new OnFailureListener() {
-                @Override
-                public void onFailure(@NonNull Exception e) {
-                    progressDialog.dismiss();
-                    Toast.makeText(contextProgress, e.getMessage(), Toast.LENGTH_SHORT).show();
-                }
-            }).addOnProgressListener(new OnProgressListener<FileDownloadTask.TaskSnapshot>() {
-                @Override
-                public void onProgress(@NonNull FileDownloadTask.TaskSnapshot taskSnapshot) {
-                    double progress = (100.0 * taskSnapshot.getBytesTransferred() / taskSnapshot.getTotalByteCount());
-                    progressDialog.setMessage((int) progress + "% sedang mengambil data gambar. harap tunggu");
-                }
+            storageReference.getFile(file).addOnSuccessListener(taskSnapshot -> {
+                progressDialog.dismiss();
+                Bitmap bitmap = BitmapFactory.decodeFile(file.getAbsolutePath());
+                imageView.setImageBitmap(bitmap);
+            }).addOnFailureListener(e -> {
+                progressDialog.dismiss();
+                Toast.makeText(contextProgress, e.getMessage(), Toast.LENGTH_SHORT).show();
+            }).addOnProgressListener(taskSnapshot -> {
+                double progress = (100.0 * taskSnapshot.getBytesTransferred() / taskSnapshot.getTotalByteCount());
+                progressDialog.setMessage((int) progress + "% sedang mengambil data gambar. harap tunggu");
             });
         } catch (IOException e) {
             e.printStackTrace();

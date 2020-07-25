@@ -19,6 +19,14 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:gravity="center_horizontal"
+                android:visibility="gone"
+                android:text="id"
+                android:id="@+id/text_view_id_pengajuan" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
                 android:id="@+id/t_view_id_pengajuan_user"
                 android:visibility="gone" />
 
@@ -74,6 +82,7 @@
                         android:layout_marginVertical="1dp"
                         android:textStyle="italic"
                         tools:ignore="RtlHardcoded,SmallSp" />
+
                 </LinearLayout>
                 <LinearLayout
                     android:layout_alignParentRight="true"

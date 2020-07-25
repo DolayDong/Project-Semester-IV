@@ -64,7 +64,6 @@ public class FragmentNotifications extends Fragment {
         while (cursor.moveToNext()) {
             dataNotifikasiAdmins.add(new DataNotifikasiAdmin(cursor.getInt(0), getResources().getDrawable(R.drawable.ic_done_all_black_24dp), cursor.getString(8) + " " + cursor.getString(10)));
         }
-
         return cursor;
     }
 }

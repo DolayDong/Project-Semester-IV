@@ -9,42 +9,39 @@
     <application
         android:name=".notifikasi.AppNotif"
         android:allowBackup="true"
-        android:icon="@mipmap/ic_launcher"
+        android:icon="@drawable/logo_login"
         android:label="@string/app_name"
-        android:roundIcon="@mipmap/ic_launcher_round"
+        android:roundIcon="@drawable/logo_login"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
-            android:name=".user.report.ReportActivity"
-            android:theme="@style/Theme.AppCompat.Light.NoActionBar">
-
-        </activity>
-        <activity
-            android:name=".admin.notifikasi.DetailNotifikasi"
-            android:theme="@style/Theme.AppCompat.Light.NoActionBar">
-
-        </activity>
-        <activity
-            android:name=".user.HalamanUserActivity"
-            android:theme="@style/Theme.MaterialComponents.Light.NoActionBar">
-
-        </activity>
-        <activity
-            android:name=".admin.HalamanAdminActivity"
-            android:theme="@style/Theme.MaterialComponents.Light.NoActionBar">
-
-        </activity>
-        <activity
-            android:name=".RegistrasiActivity"
-            android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
-        <activity
-            android:name=".LoginActivity"
+            android:name=".SplashScreen"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+        </activity>
+        <activity
+            android:name=".user.report.ReportActivity"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar"></activity>
+        <activity
+            android:name=".admin.notifikasi.DetailNotifikasi"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar"></activity>
+        <activity
+            android:name=".user.HalamanUserActivity"
+            android:theme="@style/Theme.MaterialComponents.Light.NoActionBar"></activity>
+        <activity
+            android:name=".admin.HalamanAdminActivity"
+            android:theme="@style/Theme.MaterialComponents.Light.NoActionBar"></activity>
+        <activity
+            android:name=".RegistrasiActivity"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
+        <activity
+            android:name=".LoginActivity"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar">
+
         </activity>
 
         <provider

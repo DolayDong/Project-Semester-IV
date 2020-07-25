@@ -7,7 +7,6 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -62,12 +61,7 @@ public class DetailNotifikasi extends AppCompatActivity {
 
         buttonAbaikan.setOnClickListener(v -> updateStatusDibacaDatabase());
 
-        buttonDisetujui.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                updateStatusDibacaDanApprove();
-            }
-        });
+        buttonDisetujui.setOnClickListener(v -> updateStatusDibacaDanApprove());
 
     }
 
@@ -77,7 +71,8 @@ public class DetailNotifikasi extends AppCompatActivity {
         Log.i("DATA ID ADMIN", idadmin);
         database.execSQL("UPDATE tabelpengajuan SET dibaca = 'dibaca', statusapprove = 'setuju', tanggalapprove = date('now'), idadmin = '" + namaadmin + "' WHERE id_pengajuan = '" + idPengaju + "';");
         if (database.isDatabaseIntegrityOk()) {
-            startActivity(new Intent(DetailNotifikasi.this, FragmentNotifications.class));
+            Intent intentKembali = new Intent(DetailNotifikasi.this, FragmentNotifications.class);
+            startActivity(intentKembali);
         }
     }
 
@@ -88,7 +83,8 @@ public class DetailNotifikasi extends AppCompatActivity {
 
         database.execSQL("UPDATE tabelpengajuan SET dibaca = 'dibaca' WHERE id_pengajuan = '" + idPengaju + "';");
         if (database.isDatabaseIntegrityOk()) {
-            startActivity(new Intent(DetailNotifikasi.this, FragmentNotifications.class));
+            Intent intentKembali = new Intent(DetailNotifikasi.this, FragmentNotifications.class);
+            startActivity(intentKembali);
         }
 
     }

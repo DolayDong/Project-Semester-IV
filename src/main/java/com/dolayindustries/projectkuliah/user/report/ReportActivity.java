@@ -23,6 +23,7 @@ import com.dolayindustries.projectkuliah.database.DataHelper;
 import com.dolayindustries.projectkuliah.report.PdfDocumentAdapter;
 import com.dolayindustries.projectkuliah.report.Umum;
 import com.dolayindustries.projectkuliah.user.fragment.FragmentNotifications;
+import com.itextpdf.text.BadElementException;
 import com.itextpdf.text.BaseColor;
 import com.itextpdf.text.Chunk;
 import com.itextpdf.text.Document;
@@ -40,7 +41,6 @@ import com.itextpdf.text.pdf.PdfPCell;
 import com.itextpdf.text.pdf.PdfPTable;
 import com.itextpdf.text.pdf.PdfWriter;
 import com.itextpdf.text.pdf.draw.LineSeparator;
-import com.itextpdf.text.pdf.draw.VerticalPositionMark;
 import com.karumi.dexter.Dexter;
 import com.karumi.dexter.PermissionToken;
 import com.karumi.dexter.listener.PermissionDeniedResponse;
@@ -50,7 +50,6 @@ import com.karumi.dexter.listener.single.PermissionListener;
 
 import java.io.ByteArrayOutputStream;
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
@@ -92,7 +91,10 @@ public class ReportActivity extends AppCompatActivity {
                     textViewDisetujuiOleh.setText(cursor.getString(11));
                 }
                 Toast.makeText(ReportActivity.this, tahunAjaran(textViewNim.getText().toString()), Toast.LENGTH_SHORT).show();
-                buttonKembali.setOnClickListener(v -> startActivity(new Intent(ReportActivity.this, FragmentNotifications.class)));
+                buttonKembali.setOnClickListener(v -> {
+                    Intent intentKembali = new Intent(ReportActivity.this, FragmentNotifications.class);
+                    startActivity(intentKembali);
+                });
                 buttonPrintPdf.setOnClickListener(v -> {
                     Toast.makeText(ReportActivity.this, "diklcik", Toast.LENGTH_SHORT).show();
                     buatFilePdf(Umum.getAppPath(ReportActivity.this) + "SURAT_PERNYATAAN.pdf");
@@ -148,6 +150,10 @@ public class ReportActivity extends AppCompatActivity {
             tambahNomorSurat(document, new Font(Font.FontFamily.TIMES_ROMAN, 9.0f, Font.UNDERLINE, BaseColor.BLACK));
 
             new Font(namaFont, valueUkuranFont, Font.NORMAL, BaseColor.BLACK);
+            PdfPTable pdfPTablettd = new PdfPTable(1);
+
+            //add cell untuk table diatas yang diisi dengan image yang telah di kompres
+            PdfPCell pdfPCellTtd = new PdfPCell(buatImage(30, "image/ttd.png"));
 
             // method 4
             // nama pengaju
@@ -214,26 +220,21 @@ public class ReportActivity extends AppCompatActivity {
                     "            <td>&nbsp;</td>" +
                     "            <th><strong>Kepala Kampus Sudirman-Tangerang</strong></th>" +
                     "        </tr>" +
-                    "        <tr>" +
-                    "            <td>&nbsp;</td>" +
-                    "            <td rowspan=\"3\">&nbsp;</td>" +
-                    "        </tr>" +
-                    "        <tr>" +
-                    "            <td>&nbsp;</td>" +
-                    "        </tr>" +
-                    "        <tr>" +
-                    "            <td>&nbsp;</td>" +
-                    "        </tr>" +
-                    "        <tr>" +
-                    "            <td>&nbsp;</td>" +
-                    "            <th><strong>Andri</strong></th>" +
-                    "        </tr>" +
                     "    </table>" +
                     "</body></html>";
 
             HTMLWorker htmlWorker = new HTMLWorker(document);
 
             htmlWorker.parse(new StringReader(html));
+            pdfPCellTtd.setHorizontalAlignment(Element.ALIGN_RIGHT);
+            pdfPCellTtd.setBorder(Rectangle.NO_BORDER);
+            pdfPCellTtd.setPaddingTop(30.0F);
+            pdfPCellTtd.setPaddingBottom(20.0F);
+            pdfPCellTtd.setPaddingRight(30.0F);
+            pdfPTablettd.addCell(pdfPCellTtd);
+            document.add(pdfPTablettd);
+
+            textKepalKampus(document, new Font(Font.FontFamily.TIMES_ROMAN, 13.0F, Font.BOLD, BaseColor.BLACK));
 
 
             //tutup document
@@ -241,12 +242,8 @@ public class ReportActivity extends AppCompatActivity {
 
             // jalankan method cetak untuk mengeprint document
             cetakPdf();
-        } catch (FileNotFoundException nf) {
+        } catch (IOException | DocumentException nf) {
             nf.printStackTrace();
-        } catch (IOException io) {
-            io.printStackTrace();
-        } catch (DocumentException de) {
-            de.printStackTrace();
         }
 
     }
@@ -279,16 +276,23 @@ public class ReportActivity extends AppCompatActivity {
         textViewDisetujuiOleh = findViewById(R.id.tv_value_disetujui_oleh);
     }
 
-    private void tambahDataRataKiriTengah(Document document, String judulText, Font fontKiri, Font fontKanan) throws DocumentException {
+    private void textKepalKampus(Document document, Font font) throws DocumentException {
         // pelajari chunk lebih lanjut untuk menangani document pdf itext
-        Chunk chunkTextKiri = new Chunk(judulText, fontKiri);
+        Chunk chunkText = new Chunk("Andri lrawan, S.Pd, MM", font);
+        PdfPTable pdfPTableNama = new PdfPTable(1);
 
         // instansiasi class paragraph dari itextpdf
-        Paragraph par = new Paragraph(chunkTextKiri);
-        par.add(new Chunk(new VerticalPositionMark()));
+        Paragraph par = new Paragraph(chunkText);
+        par.setAlignment(Element.ALIGN_RIGHT);
+        PdfPCell pdfPCell = new PdfPCell(new Phrase(par));
+        pdfPCell.setHorizontalAlignment(Element.ALIGN_RIGHT);
+        pdfPCell.setPaddingTop(10.0F);
+        pdfPCell.setPaddingRight(75.0F);
+        pdfPCell.setBorder(Rectangle.NO_BORDER);
+        pdfPTableNama.addCell(pdfPCell);
 
         //add paragraph yang sudah diatur propertinya diatas kedalam parameter document
-        document.add(par);
+        document.add(pdfPTableNama);
     }
 
     private void tambahGarisSeparator(Document document) throws DocumentException {
@@ -337,30 +341,11 @@ public class ReportActivity extends AppCompatActivity {
         //set font email, warna biru
         Font fontEmail = new Font(Font.FontFamily.TIMES_ROMAN, 14.0f, Font.BOLDITALIC, BaseColor.BLUE);
 
-        //ambil logo menggunakakan inputstream
-        InputStream inputStream = getAssets().open("image/lp3i.png");
-
-        //tangani logo menggunakan bitmap
-        Bitmap bitmap = BitmapFactory.decodeStream(inputStream);
-
-        //jadikan byte untuk di output
-        ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
-
-        //ambil data byte lalu compress lagi menggunakan format png
-        bitmap.compress(Bitmap.CompressFormat.PNG, 100, byteArrayOutputStream);
-
-
-        // instansiasi image dari data byte yang sudah di kompress menggunakan class dari itextpdf
-        Image image = Image.getInstance(byteArrayOutputStream.toByteArray());
-
-        //set ukuran image logo
-        image.scalePercent(7);
-
         // buat table untuk menangani image di header, dengan jumlah kolom 1
         PdfPTable pdfPTable = new PdfPTable(1);
 
         //add cell untuk table diatas yang diisi dengan image yang telah di kompres
-        PdfPCell pdfPCell = new PdfPCell(image);
+        PdfPCell pdfPCell = new PdfPCell(buatImage(7, "image/lp3i.png"));
 
         //atur alignment secara horizontal(kesamping)
         pdfPCell.setHorizontalAlignment(Element.ALIGN_CENTER);
@@ -515,5 +500,27 @@ public class ReportActivity extends AppCompatActivity {
             format = "20" + tahunawal + "/" + "20" + tahunakhir;
         }
         return format;
+    }
+
+    private Image buatImage(int ukuran, String pathGambar) throws IOException, BadElementException {
+        //ambil logo menggunakakan inputstream
+        InputStream inputStream = getAssets().open(pathGambar);
+
+        //tangani logo menggunakan bitmap
+        Bitmap bitmap = BitmapFactory.decodeStream(inputStream);
+
+        //jadikan byte untuk di output
+        ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
+
+        //ambil data byte lalu compress lagi menggunakan format png
+        bitmap.compress(Bitmap.CompressFormat.PNG, 100, byteArrayOutputStream);
+
+
+        // instansiasi image dari data byte yang sudah di kompress menggunakan class dari itextpdf
+        Image image = Image.getInstance(byteArrayOutputStream.toByteArray());
+
+        //set ukuran image logo
+        image.scalePercent(ukuran);
+        return image;
     }
 }
