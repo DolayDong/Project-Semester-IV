@@ -90,13 +90,11 @@ public class ReportActivity extends AppCompatActivity {
                     textViewTanggalDiSetujui.setText(bulanIndo(cursor.getString(10)));
                     textViewDisetujuiOleh.setText(cursor.getString(11));
                 }
-                Toast.makeText(ReportActivity.this, tahunAjaran(textViewNim.getText().toString()), Toast.LENGTH_SHORT).show();
                 buttonKembali.setOnClickListener(v -> {
                     Intent intentKembali = new Intent(ReportActivity.this, FragmentNotifications.class);
                     startActivity(intentKembali);
                 });
                 buttonPrintPdf.setOnClickListener(v -> {
-                    Toast.makeText(ReportActivity.this, "diklcik", Toast.LENGTH_SHORT).show();
                     buatFilePdf(Umum.getAppPath(ReportActivity.this) + "SURAT_PERNYATAAN.pdf");
                 });
 
@@ -228,8 +226,8 @@ public class ReportActivity extends AppCompatActivity {
             htmlWorker.parse(new StringReader(html));
             pdfPCellTtd.setHorizontalAlignment(Element.ALIGN_RIGHT);
             pdfPCellTtd.setBorder(Rectangle.NO_BORDER);
-            pdfPCellTtd.setPaddingTop(30.0F);
-            pdfPCellTtd.setPaddingBottom(20.0F);
+            pdfPCellTtd.setPaddingTop(10.0F);
+            pdfPCellTtd.setPaddingBottom(10.0F);
             pdfPCellTtd.setPaddingRight(30.0F);
             pdfPTablettd.addCell(pdfPCellTtd);
             document.add(pdfPTablettd);

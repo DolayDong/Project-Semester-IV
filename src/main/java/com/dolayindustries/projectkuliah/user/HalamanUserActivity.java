@@ -1,5 +1,6 @@
 package com.dolayindustries.projectkuliah.user;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.database.Cursor;
@@ -118,7 +119,8 @@ public class HalamanUserActivity extends AppCompatActivity {
         BadgeDrawable badgeDrawableNotifUser = bottomNavigationView.getBadge(R.id.menu_notifikasi_user);
         dataHelper = new DataHelper(getApplicationContext());
         SQLiteDatabase database = dataHelper.getReadableDatabase();
-        Cursor cursor = database.rawQuery("SELECT * FROM tabelpengajuan WHERE dibacauser = 0;", null);
+        @SuppressLint("Recycle")
+        Cursor cursor = database.rawQuery("SELECT * FROM tabelpengajuan WHERE dibacauser = 0 AND statusapprove = 'setuju';", null);
         cursor.moveToFirst();
         assert badgeDrawableNotifUser != null;
         if (cursor.getCount() > 0) {

@@ -60,8 +60,15 @@ public class AdapterRecyclerViewNotifUser extends RecyclerView.Adapter<AdapterRe
 
                 }
             } else if (holder.textViewStatusApproveNotif.getText().toString().equalsIgnoreCase(" - ")) {
+                if (holder.getDataStatusDibacaUser(arrayListData.get(position).getIdPengajuan()) == 0) {
+                    holder.updateStatusDibacaUser(arrayListData.get(position).getIdPengajuan());
+                }
                 Toast.makeText(v.getContext(), "Silahkan hubungi admin agar membaca surat pengajuan anda", Toast.LENGTH_SHORT).show();
             } else {
+                if (holder.getDataStatusDibacaUser(arrayListData.get(position).getIdPengajuan()) == 0) {
+                    holder.updateStatusDibacaUser(arrayListData.get(position).getIdPengajuan());
+                }
+
                 Toast.makeText(v.getContext(), "Tidak bisa di tindak lanjuti, karena Pengajuan ini tidak disetujui", Toast.LENGTH_SHORT).show();
             }
         });

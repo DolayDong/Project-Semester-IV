@@ -85,7 +85,6 @@ public class FragmentPengajuan extends Fragment {
                 @Override
                 public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                     dataJurusan = spinnerDataJurusan.getSelectedItem().toString();
-                    Toast.makeText(getContext(), dataJurusan, Toast.LENGTH_SHORT).show();
                 }
 
                 @Override
@@ -197,17 +196,20 @@ public class FragmentPengajuan extends Fragment {
 
         if (database.isDatabaseIntegrityOk()) {
             SharedPreferences HapusStatusLogin = requireContext().getSharedPreferences("DATA_LOGIN", MODE_PRIVATE);
+            if (HapusStatusLogin.getString("login", null) != null) {
+                Intent intentNotif = new Intent(getContext(), AppService.class);
+                requireActivity().startService(intentNotif);
+                Toast.makeText(getContext(), "Pengajuan sudah dikirim, harap menunggu untuk disetujui", Toast.LENGTH_SHORT).show();
+            }
             SharedPreferences.Editor preferencesEditor = HapusStatusLogin.edit();
             //jika logout diclick, maka data login dihapus
-            preferencesEditor.remove("login").apply();
+//            preferencesEditor.remove("login").apply();
 
             //dan diganti status dengan tidak login
-            preferencesEditor.putString("login", "pindah");
+            preferencesEditor.putString("pindah", "pindah");
             preferencesEditor.apply();
 
-            Intent intentNotif = new Intent(getContext(), AppService.class);
-            requireActivity().startService(intentNotif);
-            Toast.makeText(getContext(), "Pengajuan sudah dikirim, harap menunggu untuk disetujui", Toast.LENGTH_SHORT).show();
+
         } else {
             Toast.makeText(getContext(), "Data Tidak Terkirim", Toast.LENGTH_SHORT).show();
         }

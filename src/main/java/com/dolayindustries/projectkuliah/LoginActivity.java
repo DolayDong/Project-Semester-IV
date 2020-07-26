@@ -56,12 +56,12 @@ public class LoginActivity extends AppCompatActivity {
             Toast.makeText(LoginActivity.this, dataLogin, Toast.LENGTH_SHORT).show();
         }
 
-                        //cek apakah sebelumnya user sudah login. jika ya
-                        if (dataLogin != null && dataLogin.equalsIgnoreCase("ya")) {
-                            assert dataRole != null;
-                            if (dataRole.equalsIgnoreCase("user")) {
-                                //langsung lempar ke activity menu user
-                                Intent intentActivityMenuUser = new Intent(getApplicationContext(), HalamanUserActivity.class);
+        //cek apakah sebelumnya user sudah login. jika ya
+        if (dataLogin != null && dataLogin.equalsIgnoreCase("ya")) {
+            assert dataRole != null;
+            if (dataRole.equalsIgnoreCase("user")) {
+                //langsung lempar ke activity menu user
+                Intent intentActivityMenuUser = new Intent(getApplicationContext(), HalamanUserActivity.class);
                                 startActivity(intentActivityMenuUser);
                                 LoginActivity.this.finish();
                             } else {
@@ -73,9 +73,6 @@ public class LoginActivity extends AppCompatActivity {
 
                         }
                         /*akhir cek login*/
-
-
-
     }
 
     private void inisialisasiElement(){
@@ -96,6 +93,22 @@ public class LoginActivity extends AppCompatActivity {
     protected void onResume() {
         super.onResume();
         stopService(new Intent(getApplicationContext(), AppService.class));
+    }
+
+    @Override
+    protected void onNewIntent(Intent intent) {
+        super.onNewIntent(intent);
+        Bundle bundle = intent.getBundleExtra("DIKLIK");
+        if (bundle != null) {
+            SharedPreferences HapusStatusLogin = getSharedPreferences("DATA_LOGIN", MODE_PRIVATE);
+            SharedPreferences.Editor preferencesEditor = HapusStatusLogin.edit();
+            //jika logout diclick, maka data login dihapus
+            preferencesEditor.remove("login").apply();
+
+            //dan diganti status dengan tidak login
+            preferencesEditor.putString("login", "pindah");
+            preferencesEditor.apply();
+        }
     }
 
     private void namaDanPasswordValid() {

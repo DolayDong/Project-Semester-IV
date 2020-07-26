@@ -30,7 +30,11 @@ public class AppService extends Service {
 
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
-        tampilNotifikasi();
+        try {
+            tampilNotifikasi();
+        } catch (PendingIntent.CanceledException e) {
+            e.printStackTrace();
+        }
         return START_NOT_STICKY;
     }
 
@@ -40,8 +44,9 @@ public class AppService extends Service {
         super.onDestroy();
     }
 
-    private void tampilNotifikasi() {
+    private void tampilNotifikasi() throws PendingIntent.CanceledException {
         Intent notifIntent = new Intent(this, LoginActivity.class);
+        notifIntent.putExtra("DIKLIK", 1);
         PendingIntent pendingIntent = PendingIntent.getActivity(this, 0, notifIntent, 0);
         NotificationCompat.Builder builder = new NotificationCompat.Builder(getApplicationContext(), CHANEL_ID);
         builder.setSmallIcon(R.drawable.ic_notifications_active_black_24dp);
@@ -53,7 +58,6 @@ public class AppService extends Service {
 
         NotificationManagerCompat notificationManagerCompat = NotificationManagerCompat.from(getApplicationContext());
         notificationManagerCompat.notify(NOTIFIKASI_ID, builder.build());
-
         startForeground(1, builder.build());
     }
 }
